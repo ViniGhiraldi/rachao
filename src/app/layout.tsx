@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" className={`${museoModerno.variable} ${londrinaSolid.variable} ${kalam.variable}`}>
-      <body className="font-museo">
+      <body className="font-museo bg-zinc-100">
         <Header/>
         {children}
       </body>
