@@ -1,25 +1,7 @@
 import type { Metadata } from "next";
-import { MuseoModerno, Kalam, Londrina_Solid } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header/header";
-
-const museoModerno = MuseoModerno({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: '--font-museo-moderno'
-});
-
-const londrinaSolid = Londrina_Solid({
-  subsets: ["latin"],
-  weight: ["300", "400"],
-  variable: '--font-londrina-solid'
-});
-
-const kalam = Kalam({
-  subsets: ["latin"],
-  weight: ["300", "400", "700"],
-  variable: '--font-kalam'
-});
+import { kalam, londrinaSolid, museoModerno } from "./fonts";
 
 export const metadata: Metadata = {
   title: "Rachão",
@@ -32,8 +14,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br">
-      <body className={museoModerno.className}>
+    <html lang="pt-br" className={`${museoModerno.variable} ${londrinaSolid.variable} ${kalam.variable}`}>
+      <body className="font-museo">
         <Header/>
         {children}
       </body>

@@ -7,3 +7,9 @@
     text-wrap: balance;
   }
 }
+
+:root{
+  --font-museo: var(--font-museo-moderno);
+  --font-londrina: var(--font-londrina-solid);
+  --font-kalam: var(--font-kalam);
+}

@@ -11,7 +11,7 @@ export const HeaderNav = () => {
     }
 
     return (
-        <nav className="flex gap-10 font-medium text-lime-400/50">
+        <nav className={`flex gap-10 font-medium text-lime-400/50`}>
             <Link href='/' data-url={pathCompare('/')} className="data-[url=true]:text-lime-400">Inicio</Link>
             <Link href='/meusrachoes' data-url={pathCompare('/meusrachoes')} className="data-[url=true]:text-lime-400">Meus Rachões</Link>
             <Link href='/sobre' data-url={pathCompare('/sobre')} className="data-[url=true]:text-lime-400">Sobre</Link>

@@ -9,9 +9,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        museo: ['var(--font-museo-moderno)'],
-        londrina: ['var(--font-londrina-solid)'],
-        kalam: ['var(--font-kalam)'],
+        "museo": 'var(--font-museo)',
+        "londrina": 'var(--font-londrina)',
+        "kalam": 'var(--font-kalam)',
       }
     },
   },
