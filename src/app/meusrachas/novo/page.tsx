@@ -1,14 +1,15 @@
+import { Button } from "@/components/button"
 import Image from "next/image"
 
 export default function Novo() {
     return (
-        <div className="flex justify-center mt-4">
-            <div className="w-3/4 flex justify-center relative">
-                <Image src='/imgs/esquema-concept-1.png' alt="Esquema de jogo" className="absolute left-0" width={200} height={200} />
-                <Image src='/imgs/esquema-concept-2.png' alt="Esquema de jogo" className="absolute left-0 bottom-0 rotate-90" width={200} height={200} />
-                <Image src='/imgs/esquema-concept-2.png' alt="Esquema de jogo" className="absolute right-0" width={200} height={200} />
-                <Image src='/imgs/esquema-concept-1.png' alt="Esquema de jogo" className="absolute right-0 bottom-0 -rotate-90" width={200} height={200} />
-                <div className="rounded-xl border-4 w-96 border-primary">
+        <div className="flex justify-center sm:mt-4">
+            <div className="lg:w-4/5 flex justify-center relative">
+                <Image src='/imgs/esquema-concept-1.png' alt="Esquema de jogo" className="hidden lg:block absolute left-0" width={200} height={200} />
+                <Image src='/imgs/esquema-concept-2.png' alt="Esquema de jogo" className="hidden lg:block absolute left-0 bottom-0 rotate-90" width={200} height={200} />
+                <Image src='/imgs/esquema-concept-2.png' alt="Esquema de jogo" className="hidden lg:block absolute right-0" width={200} height={200} />
+                <Image src='/imgs/esquema-concept-1.png' alt="Esquema de jogo" className="hidden lg:block absolute right-0 bottom-0 -rotate-90" width={200} height={200} />
+                <div className="sm:rounded-xl sm:border-4 sm:w-96 border-primary">
                     <div className="py-5 text-center bg-primary">
                         <h1 className="text-4xl text-white font-londrina">Crie seu Rachão</h1>
                     </div>
@@ -36,8 +37,9 @@ export default function Novo() {
                         <div className="flex flex-col gap-1">
                             <label htmlFor="senha" className="font-semibold text-primary text-xl">Senha</label>
                             <input id="senha" type="text" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-lg" placeholder="Pelo menos 5 dígitos" />
+                            <p className="text-xs text-danger leading-3">Obs.: A senha serve para que ninguém além de quem você quiser tenha acesso de administrador</p>
                         </div>
-                        <p className="text-xs text-danger leading-3">Obs.: A senha serve para que ninguém além de quem você quiser tenha acesso de administrador</p>
+                        <Button className="w-full sm:w-auto">Criar</Button>
                     </div>
                 </div>
             </div>

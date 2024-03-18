@@ -18,7 +18,7 @@ export default function Meusrachas() {
                 <Card.root href="/">
                     <Card.title>Racha do Pedrão</Card.title>
                     <Card.content>
-                    <p className="">Modalidade: <span className="font-kalam">Futebol</span></p>
+                        <p className="">Modalidade: <span className="font-kalam">Futebol</span></p>
                         <p>Local: <span className="font-kalam">Ginásio local, Rua...</span></p>
                         <p>Data: <span className="font-kalam">05/03/2024 - 18:00</span></p>
                         <p>Confirmados: <span className="font-kalam">26</span></p>
