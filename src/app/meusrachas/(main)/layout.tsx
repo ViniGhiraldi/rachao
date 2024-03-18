@@ -11,7 +11,7 @@ export default function MeusrachasLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="p-20">
+    <div className="p-5 md:p-20">
         {children}
     </div>
   );

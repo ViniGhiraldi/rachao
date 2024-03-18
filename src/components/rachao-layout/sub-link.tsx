@@ -6,5 +6,5 @@ interface ISubLink extends React.ComponentProps<'a'>{
 }
 
 export const SubLink = ({className, children, href, ...rest}: ISubLink) => {
-    return <Link href={href} className={twMerge("text-3xl hover:underline", className)} {...rest}>{children}</Link>
+    return <Link href={href} className={twMerge("text-xl sm:text-3xl hover:underline", className)} {...rest}>{children}</Link>
 }
