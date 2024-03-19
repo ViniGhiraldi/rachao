@@ -1,6 +1,6 @@
 import { IRachao } from "@/models/rachao";
 
-export const createRachao = async (data: Pick<IRachao, 'nome' | 'senha' | 'modalidade' | 'diahora' | 'local' | 'regras' | 'status'>) => {
+export const createRachao = async (data: Pick<IRachao, 'nome' | 'senha' | 'modalidade' | 'diahora' | 'local'>) => {
     try {
         const response = await fetch('http://localhost:3333/rachao', {
             method: 'POST',

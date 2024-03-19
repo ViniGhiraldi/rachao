@@ -3,7 +3,7 @@ import { Form } from "./components/form"
 
 export default function Novo() {
     return (
-        <div className="flex justify-center sm:mt-4">
+        <div className="flex justify-center sm:my-4">
             <div className="lg:w-4/5 flex justify-center relative">
                 <Image src='/imgs/esquema-concept-1.png' alt="Esquema de jogo" className="hidden lg:block absolute left-0" width={200} height={200} />
                 <Image src='/imgs/esquema-concept-2.png' alt="Esquema de jogo" className="hidden lg:block absolute left-0 bottom-0 rotate-90" width={200} height={200} />
