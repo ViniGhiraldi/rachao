@@ -3,7 +3,7 @@ import { Divider } from "@/components/divider";
 import { RachaoLayout } from "@/components/rachao-layout";
 import { Plus } from "lucide-react";
 
-export default function Meusrachas() {
+export default async function Meusrachas() {
     return(
         <div className="">
             <RachaoLayout.root>

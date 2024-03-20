@@ -28,20 +28,20 @@ export const Form = () => {
     }
 
     return (
-        <form className="p-4 space-y-4" onSubmit={handleSubmit(handleCreateRachao)}>
+        <form className="p-4 space-y-3" onSubmit={handleSubmit(handleCreateRachao)}>
             <div className="flex flex-col gap-1">
                 <Label htmlFor="nome">Apelido do racha</Label>
-                <input type="text" {...register('nome')} id="nome" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-lg" placeholder="Ex.: Racha do Pedrão" />
+                <input type="text" {...register('nome')} id="nome" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-lg" placeholder="Ex.: Racha do Pedrão" />
                 {errors.nome && <p className="text-sm font-londrina text-danger font-thin">{errors.nome.message}</p>}
             </div>
             <div className="flex flex-col gap-1">
                 <Label htmlFor="modalidade">Modalidade</Label>
-                <input type="text" {...register('modalidade')} id="modalidade" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-lg" placeholder="Ex.: Futebol" />
+                <input type="text" {...register('modalidade')} id="modalidade" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-lg" placeholder="Ex.: Futebol" />
                 {errors.modalidade && <p className="text-sm font-londrina text-danger font-thin">{errors.modalidade.message}</p>}
             </div>
             <div className="flex flex-col gap-1">
                 <Label htmlFor="local">Local</Label>
-                <input type="text"  {...register('local')} id="local" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-lg" placeholder="Ex.: Ginásio local, Rua D. Pedro" />
+                <input type="text"  {...register('local')} id="local" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-lg" placeholder="Ex.: Ginásio local, Rua D. Pedro" />
                 {errors.local && <p className="text-sm font-londrina text-danger font-thin">{errors.local.message}</p>}
             </div>
             <div className="flex flex-col gap-1">
