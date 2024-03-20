@@ -1,9 +1,12 @@
 import { Card } from "@/components/card";
 import { Divider } from "@/components/divider";
 import { RachaoLayout } from "@/components/rachao-layout";
+import { getAllRachao } from "@/services/api/rachas/get-all-rachao";
 import { Plus } from "lucide-react";
 
 export default async function Meusrachas() {
+    const rachas = await getAllRachao();
+
     return(
         <div className="">
             <RachaoLayout.root>
@@ -15,16 +18,18 @@ export default async function Meusrachas() {
             </RachaoLayout.root>
             <Divider className="mt-2 sm:mt-7"/>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-7 gap-10">
-                <Card.root href="/">
-                    <Card.title>Racha do Pedrão</Card.title>
-                    <Card.content>
-                        <p className="">Modalidade: <span className="font-kalam">Futebol</span></p>
-                        <p>Local: <span className="font-kalam">Ginásio local, Rua...</span></p>
-                        <p>Data: <span className="font-kalam">05/03/2024 - 18:00</span></p>
-                        <p>Confirmados: <span className="font-kalam">26</span></p>
-                        <p>Status: <span className="font-kalam text-primary">Em aberto</span></p>
-                    </Card.content>
-                </Card.root>
+                {rachas?.map((rachao, i) => (
+                    <Card.root href={`/${rachao.id}`} key={i}>
+                        <Card.title>{rachao.nome}</Card.title>
+                        <Card.content>
+                            <p>Modalidade: <span className="font-kalam">{rachao.modalidade}</span></p>
+                            <p>Local: <span className="font-kalam">{rachao.local}</span></p>
+                            <p>Data: <span className="font-kalam">{rachao.diahora.toISOString()}</span></p>
+                            <p>Jogadores: <span className="font-kalam">{rachao._count.jogadores}</span></p>
+                            <p>Status: <span className="font-kalam text-primary">{rachao.status}</span></p>
+                        </Card.content>
+                    </Card.root>
+                ))}
             </div>
         </div>
     );
