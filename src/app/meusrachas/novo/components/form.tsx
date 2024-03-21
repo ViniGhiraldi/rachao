@@ -1,7 +1,6 @@
 'use client'
 
 import { Button } from "@/components/button"
-import { Input } from "@/components/input"
 import { Label } from "@/components/label"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -23,12 +22,8 @@ export const Form = () => {
         resolver: zodResolver(schema),
     });
 
-    const handleCreateRachao = async (data: Schema) => {
-        await createRachao(data);
-    }
-
     return (
-        <form className="p-4 space-y-3" onSubmit={handleSubmit(handleCreateRachao)}>
+        <form className="p-4 space-y-3" onSubmit={handleSubmit(async (data) => await createRachao(data))}>
             <div className="flex flex-col gap-1">
                 <Label htmlFor="nome">Apelido do racha</Label>
                 <input type="text" {...register('nome')} id="nome" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-lg" placeholder="Ex.: Racha do Pedrão" />
