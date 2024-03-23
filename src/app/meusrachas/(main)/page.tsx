@@ -18,20 +18,17 @@ export default async function Meusrachas() {
                     <span className="hidden sm:inline-block">Criar rachão</span>
                 </RachaoLayout.link>
             </RachaoLayout.root>
-            <Divider className="mt-2 sm:mt-7"/>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-7 gap-10">
+            <Divider className="mt-3 md:mt-7"/>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-3 md:mt-7 gap-3 md:gap-7">
                 {rachas?.map((rachao, i) => (
-                    <Card.root href={`/meusrachas/${rachao.id}`} key={i}>
+                    <Card.root href={`/meusrachas/${rachao.id}`} className="relative" key={i}>
+                        <div data-status={rachao.status} className="data-[status=true]:bg-primary data-[status=true]:animate-pulse data-[status=false]:bg-danger size-3 rounded-full absolute top-2 left-2"></div>
                         <Card.title>{rachao.nome}</Card.title>
                         <Card.content>
-                            <p>Modalidade: <span className="font-kalam">{rachao.modalidade}</span></p>
-                            <p>Local: <span className="font-kalam">{rachao.local}</span></p>
-                            <p>Data: <span className="font-kalam">{formatRelative(rachao.diahora, new Date(), {locale: ptBR})}</span></p>
-                            <p>Jogadores: <span className="font-kalam">{rachao._count.jogadores}</span></p>
-                            <p>Status: <span data-status={rachao.status} className="font-kalam data-[status=true]:text-primary data-[status=false]:text-danger">
-                                    {rachao.status ? 'Em aberto' : 'Fechado'}
-                                </span>
-                            </p>
+                            <p className="text-primary overflow-hidden text-ellipsis whitespace-nowrap">Modalidade: <span className="font-kalam text-white whitespace-normal">{rachao.modalidade}</span></p>
+                            <p className="text-primary overflow-hidden text-ellipsis whitespace-nowrap">Local: <span className="font-kalam text-white whitespace-normal">{rachao.local}</span></p>
+                            <p className="text-primary">Data: <span className="font-kalam text-white">{formatRelative(rachao.diahora, new Date(), {locale: ptBR})}</span></p>
+                            <p className="text-primary">Jogadores: <span className="font-kalam text-white">{rachao._count.jogadores}</span></p>
                         </Card.content>
                     </Card.root>
                 ))}
