@@ -10,6 +10,7 @@ import { Modal } from "@/components/modal"
 import { useState } from "react"
 import { AlertTriangle } from "lucide-react"
 import { Divider } from "@/components/divider"
+import { useRouter } from "next/navigation"
 
 const schema = z.object({
     nome: z.string().min(1, 'Este campo é obrigatório.'),
@@ -25,21 +26,25 @@ export const Form = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<Schema>({
         resolver: zodResolver(schema),
     });
+    const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [rachaoId, setRachaoId] = useState<string>();
 
     const handleCreateRachao = async (data: Schema) => {
         setIsLoading(true);
         const result = await createRachao(data);
         if(result){
             setIsOpen(true);
+            setRachaoId(result.id);
         }
         setIsLoading(false);
     }
 
     const handleCloseModal = () => {
         setIsOpen(false);
+        router.replace(`/meusrachas/${rachaoId}`);
     }
 
     return (
