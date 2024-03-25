@@ -1,5 +1,6 @@
 'use server'
 
+import { environment } from "@/environment/environment";
 import { IRachao } from "@/models/rachao";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
@@ -15,7 +16,7 @@ export const createRachao = async (body: IBody) => {
 
     const sessionId = cookiesInstance.get('sessionId');
 
-    const url = sessionId ? `http://localhost:3333/rachao?sessionId=${sessionId.value}` : `http://localhost:3333/rachao`
+    const url = sessionId ? `${environment.baseURL}/rachao?sessionId=${sessionId.value}` : `${environment.baseURL}/rachao`;
 
     try {
         const response = await fetch(url, {
@@ -38,8 +39,11 @@ export const createRachao = async (body: IBody) => {
 
         revalidateTag('get-all-rachao');
 
-        return {...data, sessionId: undefined};
+        if(data) return data;
+
+        return 'Erro ao criar rachão. Tente novamente mais tarde.';
     } catch (error) {
         console.log(error);
+        return 'Erro ao criar rachão. Tente novamente mais tarde.';
     }
 }

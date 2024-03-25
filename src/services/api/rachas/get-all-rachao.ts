@@ -1,9 +1,10 @@
 'use server'
 
+import { environment } from "@/environment/environment";
 import { IRachao } from "@/models/rachao";
 import { cookies } from "next/headers";
 
-interface IResponseSuccess extends Pick<IRachao, 'id' | 'nome' | 'modalidade' | 'diahora' | 'local' | 'status' | 'createdAt'>{
+interface IResponse extends Pick<IRachao, 'id' | 'nome' | 'modalidade' | 'diahora' | 'local' | 'status' | 'createdAt'>{
     _count: {
         jogadores: number;
     }
@@ -15,17 +16,20 @@ export const getAllRachao = async () => {
     if(!sessionId) return;
 
     try {
-        const response = await fetch(`http://localhost:3333/rachao/all/${sessionId.value}`, {
+        const response = await fetch(`${environment.baseURL}/rachao/all/${sessionId.value}`, {
             method: 'GET',
             next: {
                 tags: ['get-all-rachao']
             }
         })
 
-        const { data } = await response.json() as {data: IResponseSuccess[]};
+        const { data } = await response.json() as {data: IResponse[]};
 
-        return data;
+        if(data.length) return data;
+
+        return 'Não há nenhum rachão por aqui. Crie um para começar!';
     } catch (error) {
         console.log(error);
+        return 'Não há nenhum rachão por aqui. Crie um para começar!';
     }
 }

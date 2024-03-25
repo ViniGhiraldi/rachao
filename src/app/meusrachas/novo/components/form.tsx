@@ -13,9 +13,9 @@ import { Divider } from "@/components/divider"
 import { useRouter } from "next/navigation"
 
 const schema = z.object({
-    nome: z.string().min(1, 'Este campo é obrigatório.'),
-    modalidade: z.string().min(1, 'Este campo é obrigatório.'),
-    local: z.string().min(1, 'Este campo é obrigatório.'),
+    nome: z.string(),
+    modalidade: z.string().trim().min(1, 'Este campo é obrigatório.'),
+    local: z.string().trim().min(1, 'Este campo é obrigatório.'),
     diahora: z.coerce.date().min(new Date(), 'A data deve ser válida.'),
     senha: z.string().min(5, "A senha precisa de pelo menos 5 caracteres.")
 })
@@ -31,13 +31,16 @@ export const Form = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [rachaoId, setRachaoId] = useState<string>();
+    const [error, setError] = useState<string>();
 
     const handleCreateRachao = async (data: Schema) => {
         setIsLoading(true);
         const result = await createRachao(data);
-        if(result){
+        if(typeof result === 'object'){
             setIsOpen(true);
             setRachaoId(result.id);
+        }else{
+            setError(result);
         }
         setIsLoading(false);
     }
@@ -75,6 +78,7 @@ export const Form = () => {
                     <input type="password" disabled={isLoading} {...register('senha')} id="senha" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-lg" placeholder="A senha é requerida ao abrir o rachão" />
                     {errors.senha && <p className="text-sm font-londrina text-danger font-thin">{errors.senha.message}</p>}
                 </div>
+                {error && <p className="font-londrina text-danger font-thin">{error}</p>}
                 <Button disabled={isLoading} className="w-full sm:w-auto" type="submit">Criar</Button>
             </form>
             <Modal.root isOpen={isOpen} handleOnClose={handleCloseModal}>
