@@ -13,7 +13,7 @@ interface IResponse extends Pick<IRachao, 'id' | 'nome' | 'modalidade' | 'diahor
 export const getAllRachao = async () => {
     const sessionId = cookies().get('sessionId');
 
-    if(!sessionId) return;
+    if(!sessionId) return 'Não há nenhum rachão por aqui. Crie um para começar!';
 
     try {
         const response = await fetch(`${environment.baseURL}/rachao/all/${sessionId.value}`, {

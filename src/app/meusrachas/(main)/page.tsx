@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react";
+import { Plus, Trash } from "lucide-react";
 import { formatRelative } from 'date-fns';
 import { Card } from "@/components/card";
 import { Divider } from "@/components/divider";
@@ -10,7 +10,7 @@ export default async function Meusrachas() {
     const rachas = await getAllRachao();
 
     return (
-        <div>
+        <div className="space-y-3 md:space-y-7">
             <RachaoLayout.header>
                 <RachaoLayout.title>Meus rachas</RachaoLayout.title>
                 <RachaoLayout.link href="/meusrachas/novo" className="text-3xl flex items-center gap-1">
@@ -18,11 +18,11 @@ export default async function Meusrachas() {
                     <span className="hidden sm:inline-block">Criar rachão</span>
                 </RachaoLayout.link>
             </RachaoLayout.header>
-            <Divider className="my-3 md:my-7" />
+            <Divider/>
             {typeof rachas === 'object' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-7">
+                <RachaoLayout.grid>
                     {rachas.map((rachao, i) => (
-                        <Card.root href={`/meusrachas/${rachao.id}`} className="relative" key={i}>
+                        <Card.root href={`/meusrachas/${rachao.id}`} className="relative group" key={i}>
                             <div data-status={rachao.status} className="data-[status=true]:bg-primary data-[status=true]:animate-pulse data-[status=false]:bg-danger size-3 rounded-full absolute top-2 left-2" />
                             <Card.title>{rachao.nome}</Card.title>
                             <Card.content>
@@ -33,7 +33,7 @@ export default async function Meusrachas() {
                             </Card.content>
                         </Card.root>
                     ))}
-                </div>
+                </RachaoLayout.grid>
             )}
             {typeof rachas === 'string' && <p>{rachas}</p>}
         </div>

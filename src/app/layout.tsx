@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Toaster } from 'sonner';
 import { Header } from "@/components/header/header";
 import { kalam, londrinaSolid, museoModerno } from "./fonts";
 
@@ -19,6 +20,7 @@ export default function RootLayout({
         <Header/>
         {children}
       </body>
+      <Toaster richColors closeButton/>
     </html>
   );
 }
