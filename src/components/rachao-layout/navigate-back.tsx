@@ -8,7 +8,7 @@ export const NavigateBack = () => {
     const router = useRouter();
 
     return(
-        <Button variant="outlined" icon onClick={() => router.back()}>
+        <Button variant="outlined" icon className="hidden sm:block" onClick={() => router.back()}>
             <CornerUpLeft size={28}/>
         </Button>
     )

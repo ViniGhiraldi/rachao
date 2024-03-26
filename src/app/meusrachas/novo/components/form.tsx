@@ -52,30 +52,30 @@ export const Form = () => {
 
     return (
         <>
-            <form className="p-4 space-y-3" onSubmit={handleSubmit(handleCreateRachao)}>
+            <form className="p-3 md:p-5 space-y-3" onSubmit={handleSubmit(handleCreateRachao)}>
                 <div className="flex flex-col gap-1">
                     <Label htmlFor="nome">Apelido do racha</Label>
-                    <input type="text" disabled={isLoading} {...register('nome')} id="nome" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-lg" placeholder="Ex.: Racha do Pedrão" />
+                    <input type="text" disabled={isLoading} {...register('nome')} id="nome" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="Ex.: Racha do Pedrão" />
                     {errors.nome && <p className="text-sm font-londrina text-danger font-thin">{errors.nome.message}</p>}
                 </div>
                 <div className="flex flex-col gap-1">
                     <Label htmlFor="modalidade">Modalidade</Label>
-                    <input type="text" disabled={isLoading} {...register('modalidade')} id="modalidade" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-lg" placeholder="Ex.: Futebol" />
+                    <input type="text" disabled={isLoading} {...register('modalidade')} id="modalidade" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="Ex.: Futebol" />
                     {errors.modalidade && <p className="text-sm font-londrina text-danger font-thin">{errors.modalidade.message}</p>}
                 </div>
                 <div className="flex flex-col gap-1">
                     <Label htmlFor="local">Local</Label>
-                    <input type="text" disabled={isLoading}  {...register('local')} id="local" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-lg" placeholder="Ex.: Ginásio local, Rua D. Pedro" />
+                    <input type="text" disabled={isLoading}  {...register('local')} id="local" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="Ex.: Ginásio local, Rua D. Pedro" />
                     {errors.local && <p className="text-sm font-londrina text-danger font-thin">{errors.local.message}</p>}
                 </div>
                 <div className="flex flex-col gap-1">
                     <Label htmlFor="diahora">Dia e Horário</Label>
-                    <input type="datetime-local" disabled={isLoading} {...register('diahora')} id="diahora" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-lg"/>
+                    <input type="datetime-local" disabled={isLoading} {...register('diahora')} id="diahora" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg"/>
                     {errors.diahora && <p className="text-sm font-londrina text-danger font-thin">{errors.diahora.message}</p>}
                 </div>
                 <div className="flex flex-col gap-1">
                     <Label htmlFor="senha">Senha</Label>
-                    <input type="password" disabled={isLoading} {...register('senha')} id="senha" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-lg" placeholder="A senha é requerida ao abrir o rachão" />
+                    <input type="password" disabled={isLoading} {...register('senha')} id="senha" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="A senha é requerida ao abrir o rachão" />
                     {errors.senha && <p className="text-sm font-londrina text-danger font-thin">{errors.senha.message}</p>}
                 </div>
                 <Button disabled={isLoading} className="w-full sm:w-auto" type="submit">Criar</Button>

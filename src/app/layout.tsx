@@ -19,8 +19,8 @@ export default function RootLayout({
       <body className="font-museo text-black dark:text-white bg-background dark:bg-background-foreground">
         <Header/>
         {children}
+        <Toaster richColors closeButton/>
       </body>
-      <Toaster richColors closeButton/>
     </html>
   );
 }
