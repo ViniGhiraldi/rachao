@@ -35,7 +35,7 @@ export const getRachao = async (id: string) => {
 
         const { data } = await response.json() as {data: IResponse};
 
-        if(data) return data;
+        if(response.status === 200) return data;
 
         return 'Rachão não encontrado ou existente!';
     } catch (error) {

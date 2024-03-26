@@ -25,7 +25,7 @@ export const getAllRachao = async () => {
 
         const { data } = await response.json() as {data: IResponse[]};
 
-        if(data.length) return data;
+        if(response.status === 200 && data.length) return data;
 
         return 'Não há nenhum rachão por aqui. Crie um para começar!';
     } catch (error) {

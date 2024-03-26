@@ -7,5 +7,5 @@ interface IRoot extends React.ComponentProps<'div'>{
 }
 
 export const Root = ({isOpen, className, children, ...rest}: IRoot) => {
-    return <div data-isopen={isOpen} className={twMerge("hidden data-[isopen=true]:block max-w-36 bg-white rounded-lg px-4 py-2 text-center absolute top-7 border", className)} {...rest}>{children}</div>
+    return <div data-isopen={isOpen} className={twMerge("hidden data-[isopen=true]:flex flex-col w-40 bg-white shadow rounded-md px-4 py-3 gap-3 font-museo absolute top-12 border", className)} {...rest}>{children}</div>
 }

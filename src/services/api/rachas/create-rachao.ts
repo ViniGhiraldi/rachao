@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 
 interface IBody extends Pick<IRachao, 'nome' | 'senha' | 'modalidade' | 'diahora' | 'local'>{}
 
-interface IResponse extends Pick<IRachao, 'id' | 'nome' | 'modalidade' | 'diahora' | 'local' | 'status'>{
+interface IResponse extends Pick<IRachao, 'id' | 'nome'>{
     sessionId: string;
 }
 
@@ -37,9 +37,10 @@ export const createRachao = async (body: IBody) => {
             });
         }
 
-        revalidateTag('get-all-rachao');
-
-        if(data) return data;
+        if(response.status === 201){
+            revalidateTag('get-all-rachao');
+            return {...data, sessionId: undefined};
+        }
 
         return 'Erro ao criar rachão. Tente novamente mais tarde.';
     } catch (error) {

@@ -10,7 +10,7 @@ export default async function Meusrachas() {
     const rachas = await getAllRachao();
 
     return (
-        <div className="space-y-3 md:space-y-7">
+        <div className="space-y-3 md:space-y-4">
             <RachaoLayout.header>
                 <RachaoLayout.title>Meus rachas</RachaoLayout.title>
                 <RachaoLayout.link href="/meusrachas/novo" className="text-3xl flex items-center gap-1">

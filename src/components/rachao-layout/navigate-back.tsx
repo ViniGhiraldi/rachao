@@ -2,13 +2,14 @@
 
 import { CornerUpLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { Button } from "../button";
 
 export const NavigateBack = () => {
     const router = useRouter();
 
     return(
-        <button onClick={() => router.back()}>
+        <Button variant="outlined" icon onClick={() => router.back()}>
             <CornerUpLeft size={28}/>
-        </button>
+        </Button>
     )
 }

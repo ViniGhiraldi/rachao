@@ -3,11 +3,11 @@
 import { Settings as SettingsIcon } from "lucide-react"
 import { toast } from 'sonner';
 import { useState } from "react"
-import { Dropdown } from "../dropdown";
+import { Dropdown } from "@/components/dropdown";
 import { deleteRachao } from "@/services/api/rachas/delete-rachao";
-import { Modal } from "../modal";
-import { Divider } from "../divider";
-import { Button } from "../button";
+import { Modal } from "@/components/modal";
+import { Divider } from "@/components/divider";
+import { Button } from "@/components/button";
 import { useRouter } from "next/navigation";
 
 interface ISettings{
@@ -25,6 +25,7 @@ export const Settings = ({rachaoId}: ISettings) => {
     }
 
     const handleOnClickDeletarRachao = async () => {
+        setDropdownIsOpen(false);
         setModalIsOpen(true);
     }
 
@@ -45,9 +46,12 @@ export const Settings = ({rachaoId}: ISettings) => {
 
     return(
         <div className="relative flex flex-col items-center">
-            <button onClick={handleOnClickDropdown}><SettingsIcon size={28}/></button>
-            <Dropdown.root isOpen={dropdownIsOpen} className="top-8">
-                <button onClick={handleOnClickDeletarRachao}><Dropdown.paragraph>Deletar Rachão</Dropdown.paragraph></button>
+            <Button variant="outlined" icon onClick={handleOnClickDropdown}><SettingsIcon size={28}/></Button>
+            <Dropdown.root isOpen={dropdownIsOpen}>
+                <Dropdown.paragraph className="font-semibold">Configurações</Dropdown.paragraph>
+                <Divider/>
+                <button onClick={() => alert('editar')}><Dropdown.paragraph>Editar</Dropdown.paragraph></button>
+                <button onClick={handleOnClickDeletarRachao}><Dropdown.paragraph className="text-danger">Deletar Rachão</Dropdown.paragraph></button>
             </Dropdown.root>
             <Modal.root isOpen={modalIsOpen} handleOnClose={handleOnCloseModal}>
                 <Modal.content>
