@@ -31,9 +31,9 @@ export const EditForm = ({rachao, closeForm}: IEditForm) => {
         defaultValues: {
             nome: rachao.nome,
             modalidade: rachao.modalidade,
-            regras: rachao.regras,
+            regras: rachao.regras || undefined,
             local: rachao.local,
-            diahora: rachao.diahora
+            diahora: (rachao.diahora as unknown as string).split('.')[0] as unknown as Date
         }
     });
 
@@ -75,7 +75,7 @@ export const EditForm = ({rachao, closeForm}: IEditForm) => {
             </div>
             <div className="flex flex-col gap-1">
                 <Label htmlFor="diahora">Dia e Horário</Label>
-                <input type="datetime-local" disabled={isLoading} {...register('diahora', {valueAsDate: true})} id="diahora" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" />
+                <input type="datetime-local" disabled={isLoading} {...register('diahora')} id="diahora" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" />
                 {errors.diahora && <p className="text-sm font-londrina text-danger font-thin">{errors.diahora.message}</p>}
             </div>
 

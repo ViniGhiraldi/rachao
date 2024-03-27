@@ -4,7 +4,8 @@ import { environment } from "@/environment/environment";
 import { IRachao } from "@/models/rachao";
 import { revalidateTag } from "next/cache";
 
-interface IBody extends Pick<IRachao, 'nome' | 'modalidade' | 'diahora' | 'local' | 'regras' | 'status'>{}
+interface IBody extends Partial<Pick<IRachao, 'nome' | 'modalidade' | 'diahora' | 'local' | 'regras' | 'status'>>{
+}
 
 export const putRachao = async (id: string, body: IBody) => {
     try {

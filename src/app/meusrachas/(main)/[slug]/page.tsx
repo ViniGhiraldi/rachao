@@ -22,7 +22,7 @@ export default async function Rachao({ params }: {params: {slug: string}}){
                         <RachaoLayout.navigateBack/>
                         <RachaoLayout.title>{rachao.nome}</RachaoLayout.title>
                         <div className="sm:flex sm:items-center sm:gap-3 self-end whitespace-nowrap">
-                            <div data-status={rachao.status} className="data-[status=true]:bg-primary data-[status=false]:bg-danger size-3 rounded-full"/>
+                            <div data-status={rachao.status} className="data-[status=true]:bg-primary data-[status=false]:bg-danger shadow-sm shadow-black size-3 rounded-full"/>
                             <span className="hidden sm:inline sm:font-museo">{rachao.status ? 'Em aberto' : 'Fechado'}</span>
                         </div>
                     </div>
@@ -78,8 +78,8 @@ export default async function Rachao({ params }: {params: {slug: string}}){
                 </Card.root>
             </RachaoLayout.grid>
             <Divider/>
-            {rachao.status && <FecharListaButton rachao={{id: rachao.id, diahora: rachao.diahora, local: rachao.local, modalidade: rachao.modalidade, nome: rachao.nome}}/>}
-            {!rachao.status && <ReabrirListaButton rachao={{id: rachao.id, diahora: rachao.diahora, local: rachao.local, modalidade: rachao.modalidade, nome: rachao.nome}}/>}
+            {rachao.status && <FecharListaButton rachaoId={rachao.id}/>}
+            {!rachao.status && <ReabrirListaButton rachaoId={rachao.id}/>}
         </div>
     )
 }
