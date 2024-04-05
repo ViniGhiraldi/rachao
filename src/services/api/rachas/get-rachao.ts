@@ -29,7 +29,7 @@ export const getRachao = async (id: string) => {
         const response = await fetch(`${environment.baseURL}/rachao/${id}`, {
             method: 'GET',
             next: {
-                tags: ['get-rachao']
+                tags: ['get-rachao'],
             }
         })
 
