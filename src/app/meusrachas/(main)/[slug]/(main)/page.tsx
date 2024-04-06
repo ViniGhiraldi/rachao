@@ -4,8 +4,8 @@ import { Divider } from "@/components/divider";
 import { RachaoLayout } from "@/components/rachao-layout";
 import { getRachao } from "@/services/api/rachas/get-rachao";
 import { CircleDollarSign, ExternalLink, Shield, UserRound } from "lucide-react";
-import { Settings } from "./components/settings/settings";
 import { Subtitle } from "./components/subtitle";
+import { Settings } from "./components/settings/settings";
 import { FecharListaButton } from "./components/fechar-lista-button";
 import { ReabrirListaButton } from "./components/reabrir-lista-button";
 
