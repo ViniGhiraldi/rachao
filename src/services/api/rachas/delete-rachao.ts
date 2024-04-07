@@ -1,7 +1,5 @@
-'use server'
-
 import { environment } from "@/environment/environment"
-import { revalidateTag } from "next/cache";
+import { revalidateTagOnServer } from "@/utils/revalidate-tag-on-server";
 
 export const deleteRachao = async (id: string) => {
     try {
@@ -10,7 +8,7 @@ export const deleteRachao = async (id: string) => {
         })
 
         if(response.status === 200){
-            revalidateTag('get-all-rachao');
+            revalidateTagOnServer('get-all-rachao');
             return 'Rachão deletado com sucesso!';
         }
         

@@ -1,8 +1,6 @@
-'use server'
-
 import { environment } from "@/environment/environment";
 import { IRachao } from "@/models/rachao";
-import { revalidateTag } from "next/cache";
+import { revalidateTagOnServer } from "@/utils/revalidate-tag-on-server";
 
 interface IBody extends Partial<Pick<IRachao, 'nome' | 'modalidade' | 'diahora' | 'local' | 'regras' | 'status'>>{
 }
@@ -18,7 +16,7 @@ export const putRachao = async (id: string, body: IBody) => {
         })
 
         if(response.status === 200){
-            revalidateTag('get-rachao');
+            revalidateTagOnServer('get-rachao');
             return `As alterações foram salvas!`
         }
 

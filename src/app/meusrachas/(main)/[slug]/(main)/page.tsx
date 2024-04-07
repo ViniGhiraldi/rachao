@@ -57,7 +57,7 @@ export default async function Rachao({ params }: {params: {slug: string}}){
                     <UserRound size={48} className="text-white"/>
                     <div className="text-right">
                         <Card.paragraph>Lista de jogadores</Card.paragraph>
-                        <span className="font-light text-lg text-white">Confirmados: {rachao._count.jogadores}</span>
+                        <span className="font-light text-lg text-white">Na lista: {rachao._count.jogadores}</span>
                     </div>
                 </Card.root>
                 {!rachao.status && (

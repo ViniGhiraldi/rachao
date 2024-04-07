@@ -1,14 +1,14 @@
 import { environment } from "@/environment/environment";
 import { IJogador } from "@/models/jogador";
+import { revalidateTagOnServer } from "@/utils/revalidate-tag-on-server";
 
 interface IBody extends Pick<IJogador, 'nome' | 'presenca'>{
-    imagem: File | null
+    imagem: File | null;
 }
 
 interface IResponse extends Pick<IJogador, 'nome'>{}
 
 export const createJogador = async (id: string, body: IBody) => {
-    'use server'
     const form = new FormData();
     form.append('nome', body.nome);
     form.append('presenca', String(body.presenca));
@@ -22,8 +22,8 @@ export const createJogador = async (id: string, body: IBody) => {
 
         const { data } = await response.json() as {data: IResponse};
 
-
         if(response.status === 201){
+            revalidateTagOnServer('get-rachao')
             return data;
         }
 

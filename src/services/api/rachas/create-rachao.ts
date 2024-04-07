@@ -2,7 +2,7 @@
 
 import { environment } from "@/environment/environment";
 import { IRachao } from "@/models/rachao";
-import { revalidateTag } from "next/cache";
+import { revalidateTagOnServer } from "@/utils/revalidate-tag-on-server";
 import { cookies } from "next/headers";
 
 interface IBody extends Pick<IRachao, 'nome' | 'senha' | 'modalidade' | 'diahora' | 'local'>{}
@@ -38,7 +38,7 @@ export const createRachao = async (body: IBody) => {
         }
 
         if(response.status === 201){
-            revalidateTag('get-all-rachao');
+            revalidateTagOnServer('get-all-rachao');
             return {...data, sessionId: undefined};
         }
 

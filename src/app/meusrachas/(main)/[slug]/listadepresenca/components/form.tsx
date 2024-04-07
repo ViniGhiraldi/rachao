@@ -29,16 +29,16 @@ export const Form = ({ rachaoId }: IForm) => {
     const [imagem, setImagem] = useState<File | null>();
     const [isLoading, setIsLoading] = useState(false);
 
-    const { register, handleSubmit, formState: { errors } } = useForm<Schema>({
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<Schema>({
         resolver: zodResolver(schema),
     });
 
     const handleCreateJogador = async (data: Schema) => {
-        console.log(data)
         setIsLoading(true);
         const result = await createJogador(rachaoId, data);
         if(typeof result === 'object'){
             toast.success(`${result.nome} entrou pra lista!`);
+            reset();
         }else{
             toast.error(result);
         }
