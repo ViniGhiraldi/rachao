@@ -15,7 +15,7 @@ export const createJogador = async (id: string, body: IBody) => {
     if(body.imagem) form.append('imagem', body.imagem);
     
     try {
-        const response = await fetch(`${environment.baseURL}/jogadores/${id}`, {
+        const response = await fetch(`${environment.APIbaseURL}/jogadores/${id}`, {
             method: 'POST',
             body: form
         })

@@ -16,7 +16,7 @@ export const createRachao = async (body: IBody) => {
 
     const sessionId = cookiesInstance.get('sessionId');
 
-    const url = sessionId ? `${environment.baseURL}/rachao?sessionId=${sessionId.value}` : `${environment.baseURL}/rachao`;
+    const url = sessionId ? `${environment.APIbaseURL}/rachao?sessionId=${sessionId.value}` : `${environment.APIbaseURL}/rachao`;
 
     try {
         const response = await fetch(url, {

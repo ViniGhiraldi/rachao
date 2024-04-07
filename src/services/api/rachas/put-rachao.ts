@@ -7,7 +7,7 @@ interface IBody extends Partial<Pick<IRachao, 'nome' | 'modalidade' | 'diahora' 
 
 export const putRachao = async (id: string, body: IBody) => {
     try {
-        const response = await fetch(`${environment.baseURL}/rachao/${id}`, {
+        const response = await fetch(`${environment.APIbaseURL}/rachao/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

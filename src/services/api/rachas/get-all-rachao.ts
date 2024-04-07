@@ -16,7 +16,7 @@ export const getAllRachao = async () => {
     if(!sessionId) return 'Não há nenhum rachão por aqui. Crie um para começar!';
 
     try {
-        const response = await fetch(`${environment.baseURL}/rachao/all/${sessionId.value}`, {
+        const response = await fetch(`${environment.APIbaseURL}/rachao/all/${sessionId.value}`, {
             method: 'GET',
             next: {
                 tags: ['get-all-rachao']

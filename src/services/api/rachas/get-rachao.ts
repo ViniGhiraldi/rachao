@@ -26,7 +26,7 @@ interface IResponse extends Omit<IRachao, 'senha'>{
 
 export const getRachao = async (id: string) => {
     try {
-        const response = await fetch(`${environment.baseURL}/rachao/${id}`, {
+        const response = await fetch(`${environment.APIbaseURL}/rachao/${id}`, {
             method: 'GET',
             next: {
                 tags: ['get-rachao'],

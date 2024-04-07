@@ -3,7 +3,7 @@ import { revalidateTagOnServer } from "@/utils/revalidate-tag-on-server";
 
 export const deleteRachao = async (id: string) => {
     try {
-        const response = await fetch(`${environment.baseURL}/rachao/${id}`, {
+        const response = await fetch(`${environment.APIbaseURL}/rachao/${id}`, {
             method: 'DELETE'
         })
 

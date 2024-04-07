@@ -1,3 +1,6 @@
+const nodeEnv: 'dev' | 'prod' = 'dev';
+
 export const environment = {
-    baseURL: 'http://localhost:3333'
+    baseURL: nodeEnv === 'dev' ? 'http://localhost:3000' : '',
+    APIbaseURL: nodeEnv === 'dev' ? 'http://localhost:3333' : ''
 }

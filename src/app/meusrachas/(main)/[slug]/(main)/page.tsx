@@ -1,18 +1,18 @@
-import { Button } from "@/components/button";
 import { Card } from "@/components/card";
 import { Divider } from "@/components/divider";
 import { RachaoLayout } from "@/components/rachao-layout";
 import { getRachao } from "@/services/api/rachas/get-rachao";
-import { CircleDollarSign, ExternalLink, Shield, UserRound } from "lucide-react";
+import { CircleDollarSign, Shield, UserRound } from "lucide-react";
 import { Subtitle } from "./components/subtitle";
 import { Settings } from "./components/settings/settings";
 import { FecharListaButton } from "./components/fechar-lista-button";
 import { ReabrirListaButton } from "./components/reabrir-lista-button";
+import { CompartilharListaButton } from "./components/compartilhar-lista-button";
 
 export default async function Rachao({ params }: {params: {slug: string}}){
     const rachao = await getRachao(params.slug);
 
-    if(typeof rachao === 'string' || !rachao) return <h1 className="text-xl">{rachao || "Rachão não encontrado ou existente!"}</h1>
+    if(typeof rachao === 'string' || !rachao) return <RachaoLayout.message>{rachao || "Rachão não encontrado ou existente!"}</RachaoLayout.message>
 
     return(
         <div className="space-y-3 md:space-y-4">
@@ -30,9 +30,11 @@ export default async function Rachao({ params }: {params: {slug: string}}){
                 </div>
                 <Settings rachao={rachao}/>
             </RachaoLayout.header>
+
             <Divider/>
-            {/* Button-link for shared list link */}
-            {rachao.status && <Button className="flex items-center gap-3 shadow-md text-base sm:text-xl"><ExternalLink/> Compartilhar lista de presença</Button>}
+
+            {rachao.status && <CompartilharListaButton rachaoId={rachao.id}/>}
+
             <RachaoLayout.grid>
                 {rachao.status && (
                     <Card.root href="/" className="flex flex-col items-center justify-center h-60">
@@ -51,7 +53,9 @@ export default async function Rachao({ params }: {params: {slug: string}}){
                     <Card.paragraph>Adicionar despesa</Card.paragraph>
                 </Card.root>
             </RachaoLayout.grid>
+
             <Divider/>
+
             <RachaoLayout.grid>
                 <Card.root href="/" className="flex justify-between items-center">
                     <UserRound size={48} className="text-white"/>
@@ -77,7 +81,9 @@ export default async function Rachao({ params }: {params: {slug: string}}){
                     </div>
                 </Card.root>
             </RachaoLayout.grid>
+
             <Divider/>
+
             {rachao.status && <FecharListaButton rachaoId={rachao.id}/>}
             {!rachao.status && <ReabrirListaButton rachaoId={rachao.id}/>}
         </div>

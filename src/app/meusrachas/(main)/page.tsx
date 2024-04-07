@@ -35,7 +35,7 @@ export default async function Meusrachas() {
                     ))}
                 </RachaoLayout.grid>
             )}
-            {typeof rachas === 'string' && <p>{rachas}</p>}
+            {typeof rachas === 'string' && <RachaoLayout.message>{rachas}</RachaoLayout.message>}
         </div>
     );
 }

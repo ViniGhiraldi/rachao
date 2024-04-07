@@ -3,11 +3,12 @@ import { getRachao } from "@/services/api/rachas/get-rachao"
 import { UserRound } from "lucide-react";
 import Image from "next/image";
 import { Form } from "./components/form";
+import { RachaoLayout } from "@/components/rachao-layout";
 
 export default async function ListaDePresenca({ params }: { params: { slug: string } }) {
     const rachao = await getRachao(params.slug);
 
-    if (typeof rachao === 'string' || !rachao) return <h1 className="text-xl">{rachao || "Rachão não encontrado ou existente!"}</h1>
+    if (typeof rachao === 'string' || !rachao) return <RachaoLayout.message className="m-5 md:m-20">{rachao || "Rachão não encontrado ou existente!"}</RachaoLayout.message>
 
     return (
         <div className="flex justify-center p-3 relative">
