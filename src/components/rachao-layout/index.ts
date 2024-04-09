@@ -4,6 +4,8 @@ import { NavigateBack } from "./navigate-back";
 import { Message } from "./message";
 import { SubLink } from "./sub-link";
 import { Title } from "./title";
+import { Container } from "./container";
+import { TitleContainer } from "./title-container";
 
 export const RachaoLayout = {
     header: Header,
@@ -11,5 +13,7 @@ export const RachaoLayout = {
     link: SubLink,
     navigateBack: NavigateBack,
     grid: Grid,
-    message: Message
+    message: Message,
+    container: Container,
+    titleContainer: TitleContainer
 }

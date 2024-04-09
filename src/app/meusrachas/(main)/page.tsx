@@ -10,10 +10,10 @@ export default async function Meusrachas() {
     const rachas = await getAllRachao();
 
     return (
-        <div className="space-y-3 md:space-y-4 p-5 md:p-20">
+        <RachaoLayout.container className="p-5 md:p-20">
             <RachaoLayout.header>
                 <RachaoLayout.title>Meus rachas</RachaoLayout.title>
-                <RachaoLayout.link href="/meusrachas/novo" className="text-3xl flex items-center gap-1">
+                <RachaoLayout.link href="/meusrachas/novo" className="flex items-center gap-1">
                     <Plus className="text-primary" size={28} />
                     <span className="hidden sm:inline-block">Criar rachão</span>
                 </RachaoLayout.link>
@@ -36,6 +36,6 @@ export default async function Meusrachas() {
                 </RachaoLayout.grid>
             )}
             {typeof rachas === 'string' && <RachaoLayout.message>{rachas}</RachaoLayout.message>}
-        </div>
+        </RachaoLayout.container>
     );
 }

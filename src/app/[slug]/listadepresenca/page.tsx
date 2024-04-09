@@ -4,11 +4,14 @@ import { UserRound } from "lucide-react";
 import Image from "next/image";
 import { Form } from "./components/form";
 import { RachaoLayout } from "@/components/rachao-layout";
+import { getAllJogadores } from "@/services/api/jogadores/get-all-jogadores";
+import { IJogador } from "@/models/jogador";
 
 export default async function ListaDePresenca({ params }: { params: { slug: string } }) {
     const rachao = await getRachao(params.slug);
+    const jogadores = await getAllJogadores(params.slug) as string | IJogador[];
 
-    if (typeof rachao === 'string' || !rachao) return <RachaoLayout.message className="m-5 md:m-20">{rachao || "Rachão não encontrado ou existente!"}</RachaoLayout.message>
+    if (typeof rachao === "string") return <RachaoLayout.message className="m-5 md:m-20">{rachao || "Rachão não encontrado ou existente!"}</RachaoLayout.message>
 
     return (
         <div className="flex justify-center p-3 relative">
@@ -23,11 +26,11 @@ export default async function ListaDePresenca({ params }: { params: { slug: stri
                 <Divider />
                 <Form rachaoId={rachao.id}/>
                 <Divider />
-                {rachao.jogadores.length > 0 && (
+                {typeof jogadores === 'object' && (
                     <>
                         <p className="text-2xl font-light">Quem já está dentro</p>
                         <div className="space-y-3">
-                            {rachao.jogadores.map((jogador, i) => (
+                            {jogadores.map((jogador, i) => (
                                 <div className="flex gap-4 items-center" key={i}>
                                     {jogador.imagem ? (
                                         <img src={jogador.imagem?.url} alt={jogador.nome} className="size-16 rounded-md aspect-square object-cover" />

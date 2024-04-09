@@ -1,20 +1,8 @@
-import { environment } from "@/environment/environment"
-import { IDespesa } from "@/models/despesa";
-import { IJogador } from "@/models/jogador"
-import { IRachao } from "@/models/rachao"
+import { environment } from "@/environment/environment";
+import { IRachao } from "@/models/rachao";
 import { IResultado } from "@/models/resultado";
-import { ITime } from "@/models/time";
-
-interface IResponseTimes extends Omit<ITime, 'createdAt'>{
-    _count: {
-        jogadores: number;
-    }
-}
 
 interface IResponse extends Omit<IRachao, 'senha'>{
-    jogadores: IJogador[];
-    times: IResponseTimes[];
-    despesas: Omit<IDespesa, 'createdAt'>[];
     resultados: IResultado[];
     _count: {
         jogadores: number;

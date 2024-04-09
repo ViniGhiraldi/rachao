@@ -15,17 +15,17 @@ export default async function Rachao({ params }: {params: {slug: string}}){
     if(typeof rachao === 'string' || !rachao) return <RachaoLayout.message>{rachao || "Rachão não encontrado ou existente!"}</RachaoLayout.message>
 
     return(
-        <div className="space-y-3 md:space-y-4">
+        <RachaoLayout.container>
             <RachaoLayout.header>
                 <div className="space-y-2">
-                    <div className="flex items-center gap-3 sm:gap-5">
+                    <RachaoLayout.titleContainer>
                         <RachaoLayout.navigateBack/>
                         <RachaoLayout.title>{rachao.nome}</RachaoLayout.title>
                         <div className="sm:flex sm:items-center sm:gap-3 self-end whitespace-nowrap">
                             <div data-status={rachao.status} className="data-[status=true]:bg-primary data-[status=false]:bg-danger size-3 rounded-full"/>
                             <span className="hidden sm:inline sm:font-museo">{rachao.status ? 'Em aberto' : 'Fechado'}</span>
                         </div>
-                    </div>
+                    </RachaoLayout.titleContainer>
                     <Subtitle>{rachao.regras ? rachao.regras : 'As regras do rachão aparecerão aqui...'}</Subtitle>
                 </div>
                 <Settings rachao={rachao}/>
@@ -57,7 +57,7 @@ export default async function Rachao({ params }: {params: {slug: string}}){
             <Divider/>
 
             <RachaoLayout.grid>
-                <Card.root href="/" className="flex justify-between items-center">
+                <Card.root href={`/meusrachas/${rachao.id}/jogadores`} className="flex justify-between items-center">
                     <UserRound size={48} className="text-white"/>
                     <div className="text-right">
                         <Card.paragraph>Lista de jogadores</Card.paragraph>
@@ -86,6 +86,6 @@ export default async function Rachao({ params }: {params: {slug: string}}){
 
             {rachao.status && <FecharListaButton rachaoId={rachao.id}/>}
             {!rachao.status && <ReabrirListaButton rachaoId={rachao.id}/>}
-        </div>
+        </RachaoLayout.container>
     )
 }
