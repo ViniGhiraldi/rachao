@@ -25,9 +25,9 @@ export default async function ListaDePresenca({ params }: { params: { slug: stri
                 <h1 className="text-4xl text-center text-primary">{rachao.nome}</h1>
                 <Divider />
                 <Form rachaoId={rachao.id}/>
-                <Divider />
                 {typeof jogadores === 'object' && (
                     <>
+                        <Divider />
                         <p className="text-2xl font-light">Quem já está dentro</p>
                         <div className="space-y-3">
                             {jogadores.map((jogador, i) => (

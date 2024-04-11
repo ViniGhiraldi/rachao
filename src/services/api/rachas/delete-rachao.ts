@@ -9,7 +9,7 @@ export const deleteRachao = async (id: string) => {
 
         if(response.status === 200){
             revalidateTagOnServer('get-all-rachao');
-            return 'Rachão deletado com sucesso!';
+            return;
         }
         
         return 'Erro ao deletar rachão.';

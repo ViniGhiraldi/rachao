@@ -1,12 +1,12 @@
 import { environment } from "@/environment/environment";
 import { IJogador } from "@/models/jogador";
 
-interface IResponsePresenca{
-    confirmado: IJogador[];
-    pendente: IJogador[];
+export interface IGetAllJogadoresResponsePresenca{
+    confirmados: IJogador[];
+    pendentes: IJogador[];
 }
 
-interface IResponseTime{
+export interface IGetAllJogadoresResponseTime{
     comTime: IJogador[];
     semTime: IJogador[];
 }
@@ -26,10 +26,10 @@ export const getAllJogadores = async (id: string, list?: 'presenca' | 'time') =>
 
         if(response.status === 200) {
             if(list === 'presenca'){
-                return (data as {data: IResponsePresenca}).data;
+                return (data as {data: IGetAllJogadoresResponsePresenca}).data;
             }
             if(list === 'time'){
-                return (data as {data: IResponseTime}).data;
+                return (data as {data: IGetAllJogadoresResponseTime}).data;
             }
             const dataAsIJogador = (data as {data: IJogador[]}).data
             if(dataAsIJogador) return dataAsIJogador;

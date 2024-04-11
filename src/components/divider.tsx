@@ -4,6 +4,6 @@ interface IDivider extends React.ComponentProps<'div'>{
     vertical?: boolean;
 }
 
-export const Divider = ({vertical, className, ...rest}: IDivider) => {
-    return <div data-vertical={vertical} className={twMerge("w-full data-[vertical=true]:w-px h-px data-[vertical=true]:h-full bg-zinc-400", className)} {...rest}/>
+export const Divider = ({vertical = false, className, ...rest}: IDivider) => {
+    return <div data-vertical={vertical} className={twMerge("data-[vertical=false]:w-full data-[vertical=true]:w-px data-[vertical=false]:h-px data-[vertical=true]:h-full bg-zinc-400", className)} {...rest}/>
 }

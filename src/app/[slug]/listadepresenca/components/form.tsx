@@ -50,7 +50,7 @@ export const Form = ({ rachaoId }: IForm) => {
             <div className="flex flex-col gap-1">
                 <input type="file" {...register('imagem')} disabled={isLoading} onChange={e => setImagem(e.currentTarget.files?.item(0))} id="imagem" className="sr-only" />
                 <label htmlFor="imagem" className="size-40 border-4 border-dashed cursor-pointer border-primary rounded-lg overflow-hidden flex items-center justify-center text-muted text-center self-center">
-                    {imagem ?<img src={URL.createObjectURL(imagem)} className="w-full h-full aspect-square object-cover"/> : <span className="p-4">Clique para adicionar uma foto</span>}
+                    {imagem ? <img src={URL.createObjectURL(imagem)} className="w-full h-full aspect-square object-cover"/> : <span className="p-4">Clique para adicionar uma foto</span>}
                 </label>
                 {errors.imagem && <p className="text-sm font-londrina text-danger font-thin">{errors.imagem.message}</p>}
             </div>

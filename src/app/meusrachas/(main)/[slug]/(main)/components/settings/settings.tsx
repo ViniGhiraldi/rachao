@@ -42,8 +42,8 @@ export const Settings = ({rachao}: ISettings) => {
         setIsLoading(true);
         const result = await deleteRachao(rachao.id);
         setModalDeleteRachaoIsOpen(false);
-        if(result === 'Rachão deletado com sucesso!'){
-            toast.success(result);
+        if(!result){
+            toast.success('Rachão deletado com sucesso!');
             router.replace('/meusrachas');
         }else{
             toast.error(result);
