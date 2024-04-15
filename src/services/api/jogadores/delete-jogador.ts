@@ -9,6 +9,7 @@ export const deleteJogador = async (id: string) => {
 
         if(response.status === 200){
             revalidateTagOnServer('get-all-jogadores');
+            revalidateTagOnServer('get-rachao');
             return;
         }
 

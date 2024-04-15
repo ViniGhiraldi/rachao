@@ -23,7 +23,8 @@ export const createJogador = async (id: string, body: IBody) => {
         const { data } = await response.json() as {data: IResponse};
 
         if(response.status === 201){
-            revalidateTagOnServer('get-all-jogadores')
+            revalidateTagOnServer('get-all-jogadores');
+            revalidateTagOnServer('get-rachao');
             return data;
         }
 

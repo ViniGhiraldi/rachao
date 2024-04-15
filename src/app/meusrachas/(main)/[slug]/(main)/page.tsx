@@ -8,6 +8,7 @@ import { Settings } from "./components/settings/settings";
 import { FecharListaButton } from "./components/fechar-lista-button";
 import { ReabrirListaButton } from "./components/reabrir-lista-button";
 import { CompartilharListaButton } from "./components/compartilhar-lista-button";
+import { Status } from "@/components/status";
 
 export default async function Rachao({ params }: {params: {slug: string}}){
     const rachao = await getRachao(params.slug);
@@ -22,7 +23,7 @@ export default async function Rachao({ params }: {params: {slug: string}}){
                         <RachaoLayout.navigateBack/>
                         <RachaoLayout.title>{rachao.nome}</RachaoLayout.title>
                         <div className="sm:flex sm:items-center sm:gap-3 self-end whitespace-nowrap">
-                            <div data-status={rachao.status} className="data-[status=true]:bg-primary data-[status=false]:bg-danger size-3 rounded-full"/>
+                            <Status status={rachao.status}/>
                             <span className="hidden sm:inline sm:font-museo">{rachao.status ? 'Em aberto' : 'Fechado'}</span>
                         </div>
                     </RachaoLayout.titleContainer>

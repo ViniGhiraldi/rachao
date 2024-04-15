@@ -5,6 +5,7 @@ import { Divider } from "@/components/divider";
 import { RachaoLayout } from "@/components/rachao-layout";
 import { getAllRachao } from "@/services/api/rachas/get-all-rachao";
 import { ptBR } from "date-fns/locale";
+import { Status } from "@/components/status";
 
 export default async function Meusrachas() {
     const rachas = await getAllRachao();
@@ -23,7 +24,7 @@ export default async function Meusrachas() {
                 <RachaoLayout.grid>
                     {rachas.map((rachao, i) => (
                         <Card.root href={`/meusrachas/${rachao.id}`} className="relative group" key={i}>
-                            <div data-status={rachao.status} className="data-[status=true]:bg-primary data-[status=true]:animate-pulse data-[status=false]:bg-danger size-3 rounded-full absolute top-2 left-2" />
+                            <Status status={rachao.status} className="data-[status=true]:animate-pulse absolute top-2 left-2"/>
                             <Card.title>{rachao.nome}</Card.title>
                             <Card.content>
                                 <p className="text-primary overflow-hidden text-ellipsis whitespace-nowrap">Modalidade: <span className="font-kalam text-white whitespace-normal">{rachao.modalidade}</span></p>

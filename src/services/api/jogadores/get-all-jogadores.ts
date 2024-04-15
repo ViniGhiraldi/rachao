@@ -1,39 +1,18 @@
 import { environment } from "@/environment/environment";
 import { IJogador } from "@/models/jogador";
 
-export interface IGetAllJogadoresResponsePresenca{
-    confirmados: IJogador[];
-    pendentes: IJogador[];
-}
-
-export interface IGetAllJogadoresResponseTime{
-    comTime: IJogador[];
-    semTime: IJogador[];
-}
-
-export const getAllJogadores = async (id: string, list?: 'presenca' | 'time') => {
-    const url = list ? `${environment.APIbaseURL}/jogadores/all/${id}?list=${list}` : `${environment.APIbaseURL}/jogadores/all/${id}`;
-
+export const getAllJogadores = async (id: string, orderBy: 'presenca' | 'time' = 'presenca') => {
     try {
-        const response = await fetch(url, {
+        const response = await fetch(`${environment.APIbaseURL}/jogadores/all/${id}?orderBy=${orderBy}`, {
             method: 'GET',
             next: {
                 tags: ['get-all-jogadores'],
             }
         })
 
-        const data = await response.json();
+        const { data } = await response.json() as {data: IJogador[]};
 
-        if(response.status === 200) {
-            if(list === 'presenca'){
-                return (data as {data: IGetAllJogadoresResponsePresenca}).data;
-            }
-            if(list === 'time'){
-                return (data as {data: IGetAllJogadoresResponseTime}).data;
-            }
-            const dataAsIJogador = (data as {data: IJogador[]}).data
-            if(dataAsIJogador) return dataAsIJogador;
-        };
+        if(response.status === 200 && data.length) return data;
 
         return 'Não há jogadores até o momento.';
     } catch (error) {

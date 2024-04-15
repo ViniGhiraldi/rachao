@@ -5,11 +5,10 @@ import Image from "next/image";
 import { Form } from "./components/form";
 import { RachaoLayout } from "@/components/rachao-layout";
 import { getAllJogadores } from "@/services/api/jogadores/get-all-jogadores";
-import { IJogador } from "@/models/jogador";
 
 export default async function ListaDePresenca({ params }: { params: { slug: string } }) {
     const rachao = await getRachao(params.slug);
-    const jogadores = await getAllJogadores(params.slug) as string | IJogador[];
+    const jogadores = await getAllJogadores(params.slug);
 
     if (typeof rachao === "string") return <RachaoLayout.message className="m-5 md:m-20">{rachao || "Rachão não encontrado ou existente!"}</RachaoLayout.message>
 

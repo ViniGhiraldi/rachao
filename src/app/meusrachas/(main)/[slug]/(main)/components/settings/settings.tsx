@@ -60,6 +60,12 @@ export const Settings = ({rachao}: ISettings) => {
                 <button onClick={handleOnClickEditar}><Dropdown.paragraph>Editar</Dropdown.paragraph></button>
                 <button onClick={handleOnClickDeletarRachao}><Dropdown.paragraph className="text-danger">Deletar Rachão</Dropdown.paragraph></button>
             </Dropdown.root>
+            <Modal.root isOpen={modalEditRachaoIsOpen} handleOnClose={() => setModalEditRachaoIsOpen(false)}>
+                <Modal.content className="text-left sm:w-96">
+                    <h1>Editar</h1>
+                    <EditForm rachao={rachao} closeForm={() => setModalEditRachaoIsOpen(false)}/>
+                </Modal.content>
+            </Modal.root>
             <Modal.root isOpen={modalDeleteRachaoIsOpen} handleOnClose={() => setModalDeleteRachaoIsOpen(false)}>
                 <Modal.content>
                     <Modal.attention/>
@@ -69,12 +75,6 @@ export const Settings = ({rachao}: ISettings) => {
                         <Button variant="danger" disabled={isLoading} onClick={handleOnDelete}>Deletar</Button>
                         <Button variant="outlined" onClick={() => setModalDeleteRachaoIsOpen(false)}>Cancelar</Button>
                     </div>
-                </Modal.content>
-            </Modal.root>
-            <Modal.root isOpen={modalEditRachaoIsOpen} handleOnClose={() => setModalEditRachaoIsOpen(false)}>
-                <Modal.content className="text-left sm:w-96">
-                    <h1>Editar</h1>
-                    <EditForm rachao={rachao} closeForm={() => setModalEditRachaoIsOpen(false)}/>
                 </Modal.content>
             </Modal.root>
         </div>

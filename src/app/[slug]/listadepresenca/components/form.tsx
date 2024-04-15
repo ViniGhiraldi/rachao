@@ -60,7 +60,7 @@ export const Form = ({ rachaoId }: IForm) => {
                 {errors.nome && <p className="text-sm font-londrina text-danger font-thin">{errors.nome.message}</p>}
             </div>
             <div className="flex flex-col gap-1">
-                <Label>Presença</Label>
+                <Label htmlFor="presenca">Presença</Label>
                 <input type="checkbox" {...register('presenca')} disabled={isLoading} id="presenca" defaultChecked className="peer sr-only" />
                 <Label htmlFor="presenca" className="h-6 w-12 bg-muted-foreground hover:bg-muted rounded-full transition-colors cursor-pointer flex items-center px-0.5 peer-checked:justify-end after:absolute after:size-5 after:bg-danger peer-checked:after:bg-primary after:rounded-full"/>
                 {errors.presenca && <p className="text-sm font-londrina text-danger font-thin">{errors.presenca.message}</p>}
