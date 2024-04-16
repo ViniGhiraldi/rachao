@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/button"
 import { Label } from "@/components/label"
+import { Form as ComponentForm } from "@/components/form"
 import { useForm } from "react-hook-form"
 import { toast } from 'sonner';
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -52,34 +53,34 @@ export const Form = () => {
 
     return (
         <>
-            <form className="p-3 md:p-5 space-y-3" onSubmit={handleSubmit(handleCreateRachao)}>
-                <div className="flex flex-col gap-1">
+            <ComponentForm.root className="p-3 md:p-5 w-auto" onSubmit={handleSubmit(handleCreateRachao)}>
+                <ComponentForm.fieldContainer>
                     <Label htmlFor="nome">Apelido do racha</Label>
                     <input type="text" disabled={isLoading} {...register('nome')} id="nome" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="Ex.: Racha do Pedrão" />
-                    {errors.nome && <p className="text-sm font-londrina text-danger font-thin">{errors.nome.message}</p>}
-                </div>
-                <div className="flex flex-col gap-1">
+                    {errors.nome && <ComponentForm.errorParagraph>{errors.nome.message}</ComponentForm.errorParagraph>}
+                </ComponentForm.fieldContainer>
+                <ComponentForm.fieldContainer>
                     <Label htmlFor="modalidade">Modalidade</Label>
                     <input type="text" disabled={isLoading} {...register('modalidade')} id="modalidade" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="Ex.: Futebol" />
-                    {errors.modalidade && <p className="text-sm font-londrina text-danger font-thin">{errors.modalidade.message}</p>}
-                </div>
-                <div className="flex flex-col gap-1">
+                    {errors.modalidade && <ComponentForm.errorParagraph>{errors.modalidade.message}</ComponentForm.errorParagraph>}
+                </ComponentForm.fieldContainer>
+                <ComponentForm.fieldContainer>
                     <Label htmlFor="local">Local</Label>
                     <input type="text" disabled={isLoading}  {...register('local')} id="local" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="Ex.: Ginásio local, Rua D. Pedro" />
-                    {errors.local && <p className="text-sm font-londrina text-danger font-thin">{errors.local.message}</p>}
-                </div>
-                <div className="flex flex-col gap-1">
+                    {errors.local && <ComponentForm.errorParagraph>{errors.local.message}</ComponentForm.errorParagraph>}
+                </ComponentForm.fieldContainer>
+                <ComponentForm.fieldContainer>
                     <Label htmlFor="diahora">Dia e Horário</Label>
                     <input type="datetime-local" disabled={isLoading} {...register('diahora')} id="diahora" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg"/>
-                    {errors.diahora && <p className="text-sm font-londrina text-danger font-thin">{errors.diahora.message}</p>}
-                </div>
-                <div className="flex flex-col gap-1">
+                    {errors.diahora && <ComponentForm.errorParagraph>{errors.diahora.message}</ComponentForm.errorParagraph>}
+                </ComponentForm.fieldContainer>
+                <ComponentForm.fieldContainer>
                     <Label htmlFor="senha">Senha</Label>
                     <input type="password" disabled={isLoading} {...register('senha')} id="senha" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="A senha é requerida ao abrir o rachão" />
-                    {errors.senha && <p className="text-sm font-londrina text-danger font-thin">{errors.senha.message}</p>}
-                </div>
+                    {errors.senha && <ComponentForm.errorParagraph>{errors.senha.message}</ComponentForm.errorParagraph>}
+                </ComponentForm.fieldContainer>
                 <Button disabled={isLoading} className="w-full sm:w-auto" type="submit">Criar</Button>
-            </form>
+            </ComponentForm.root>
             <Modal.root isOpen={isOpen} handleOnClose={handleCloseModal}>
                 <Modal.content>
                     <Modal.attention/>

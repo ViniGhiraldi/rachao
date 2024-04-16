@@ -1,13 +1,15 @@
 'use client'
 
 import { Button } from "@/components/button";
-import { Label } from "@/components/label"
+import { Label } from "@/components/label";
+import { Form as ComponentForm } from "@/components/form";
 import { createJogador } from "@/services/api/jogadores/create-jogador";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { Toggle } from "@/components/toggle";
 
 const schema = z.object({
     nome: z.string().trim().min(1, 'Este campo é obrigatório.'),
@@ -46,26 +48,26 @@ export const Form = ({ rachaoId }: IForm) => {
     }
 
     return (
-        <form className="flex flex-col gap-4 font-museo" encType="multipart/form-data" onSubmit={handleSubmit(handleCreateJogador)}>
-            <div className="flex flex-col gap-1">
+        <ComponentForm.root className="w-auto font-museo" encType="multipart/form-data" onSubmit={handleSubmit(handleCreateJogador)}>
+            <ComponentForm.fieldContainer>
                 <input type="file" {...register('imagem')} disabled={isLoading} onChange={e => setImagem(e.currentTarget.files?.item(0))} id="imagem" className="sr-only" />
-                <label htmlFor="imagem" className="size-40 border-4 border-dashed cursor-pointer border-primary rounded-lg overflow-hidden flex items-center justify-center text-muted text-center self-center">
-                    {imagem ? <img src={URL.createObjectURL(imagem)} className="w-full h-full aspect-square object-cover"/> : <span className="p-4">Clique para adicionar uma foto</span>}
-                </label>
-                {errors.imagem && <p className="text-sm font-londrina text-danger font-thin">{errors.imagem.message}</p>}
-            </div>
-            <div className="flex flex-col gap-1">
+                <ComponentForm.imageArea htmlFor="imagem">
+                    {imagem ? <ComponentForm.image src={URL.createObjectURL(imagem)}/> : <ComponentForm.textImage>Clique para adicionar uma foto</ComponentForm.textImage>}
+                </ComponentForm.imageArea>
+                {errors.imagem && <ComponentForm.errorParagraph>{errors.imagem.message}</ComponentForm.errorParagraph>}
+            </ComponentForm.fieldContainer>
+            <ComponentForm.fieldContainer>
                 <Label htmlFor="nome">Nome</Label>
                 <input type="text" {...register('nome')} disabled={isLoading} id="nome" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="Ex.: Luca Gol" />
-                {errors.nome && <p className="text-sm font-londrina text-danger font-thin">{errors.nome.message}</p>}
-            </div>
-            <div className="flex flex-col gap-1">
+                {errors.nome && <ComponentForm.errorParagraph>{errors.nome.message}</ComponentForm.errorParagraph>}
+            </ComponentForm.fieldContainer>
+            <ComponentForm.fieldContainer>
                 <Label htmlFor="presenca">Presença</Label>
                 <input type="checkbox" {...register('presenca')} disabled={isLoading} id="presenca" defaultChecked className="peer sr-only" />
-                <Label htmlFor="presenca" className="h-6 w-12 bg-muted-foreground hover:bg-muted rounded-full transition-colors cursor-pointer flex items-center px-0.5 peer-checked:justify-end after:absolute after:size-5 after:bg-danger peer-checked:after:bg-primary after:rounded-full"/>
-                {errors.presenca && <p className="text-sm font-londrina text-danger font-thin">{errors.presenca.message}</p>}
-            </div>
+                <Toggle htmlFor="presenca"/>
+                {errors.presenca && <ComponentForm.errorParagraph>{errors.presenca.message}</ComponentForm.errorParagraph>}
+            </ComponentForm.fieldContainer>
             <Button className="w-full sm:w-fit" disabled={isLoading} type="submit">Entrar na lista</Button>
-        </form>
+        </ComponentForm.root>
     )
 }

@@ -1,10 +1,13 @@
 'use client'
 
 import { Button } from "@/components/button";
+import { Form } from "@/components/form";
 import { Label } from "@/components/label";
+import { Toggle } from "@/components/toggle";
 import { IJogador } from "@/models/jogador";
 import { putJogador } from "@/services/api/jogadores/put-jogador";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form"
 import { toast } from "sonner";
@@ -29,7 +32,7 @@ interface IEditForm{
 }
 
 export const EditForm = ({jogador, closeForm}: IEditForm) => {
-    const {register, handleSubmit, reset, formState: { errors }} = useForm<Schema>({
+    const {register, handleSubmit, formState: { errors }} = useForm<Schema>({
         resolver: zodResolver(schema),
         defaultValues: {
             nome: jogador.nome,
@@ -53,36 +56,56 @@ export const EditForm = ({jogador, closeForm}: IEditForm) => {
         setIsLoading(false);
     }
 
+    const handleDeleteImage = async () => {
+        if(!jogador.imagem) {
+            toast.info('O jogador não possui imagem.');
+            return;
+        }
+        setIsLoading(true);
+        const result = await putJogador(jogador.id, {}, {deleteImagem: true});
+        closeForm();
+        if(result === 'As alterações foram salvas!'){
+            setImagem(null);
+            toast.success(result);
+        }else{
+            toast.error(result);
+        }
+        setIsLoading(false);
+    }
+
     return (
-        <form className="space-y-3 w-full" encType="multipart/form-data" onSubmit={handleSubmit(handleEditJogador)}>
-            <div className="flex flex-col gap-1">
+        <Form.root encType="multipart/form-data" onSubmit={handleSubmit(handleEditJogador)}>
+            <Form.fieldContainer className="relative">
                 <input type="file" {...register('imagem')} disabled={isLoading} onChange={e => setImagem(e.currentTarget.files?.item(0))} id={`imagem-${jogador.id}`} className="sr-only" />
-                <label htmlFor={`imagem-${jogador.id}`} className="size-40 border-4 border-dashed cursor-pointer border-primary rounded-lg overflow-hidden flex items-center justify-center text-muted text-center self-center">
-                    {imagem ? <img src={typeof imagem === 'string' ? imagem : URL.createObjectURL(imagem)} className="w-full h-full aspect-square object-cover"/> : <span className="p-4">Clique para adicionar uma foto</span>}
-                </label>
-                {errors.imagem && <p className="text-sm font-londrina text-danger font-thin">{errors.imagem.message}</p>}
-            </div>
-            <div className="flex flex-col gap-1">
+                <Form.imageArea htmlFor={`imagem-${jogador.id}`}>
+                    {imagem ? <Form.image src={typeof imagem === 'string' ? imagem : URL.createObjectURL(imagem)}/> : <Form.textImage>Clique para adicionar uma foto</Form.textImage>}
+                </Form.imageArea>
+                <Button className="absolute right-0 bottom-0" variant="outlined" icon type="button" onClick={handleDeleteImage}>
+                    <Trash2 className="text-danger" size={28}/>
+                </Button>
+                {errors.imagem && <Form.errorParagraph>{errors.imagem.message}</Form.errorParagraph>}
+            </Form.fieldContainer>
+            <Form.fieldContainer>
                 <Label htmlFor={`nome-${jogador.id}`}>Nome</Label>
                 <input type="text" disabled={isLoading} {...register('nome')} id={`nome-${jogador.id}`} autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="Nome do jogador" />
-                {errors.nome && <p className="text-sm font-londrina text-danger font-thin">{errors.nome.message}</p>}
-            </div>
-            <div className="flex flex-col gap-1">
+                {errors.nome && <Form.errorParagraph>{errors.nome.message}</Form.errorParagraph>}
+            </Form.fieldContainer>
+            <Form.fieldContainer>
                 <Label htmlFor={`presenca-${jogador.id}`}>Presença</Label>
                 <input type="checkbox" {...register('presenca')} disabled={isLoading} id={`presenca-${jogador.id}`} className="peer sr-only" />
-                <Label htmlFor={`presenca-${jogador.id}`} className="h-6 w-12 bg-muted-foreground hover:bg-muted rounded-full transition-colors cursor-pointer flex items-center px-0.5 peer-checked:justify-end after:absolute after:size-5 after:bg-danger peer-checked:after:bg-primary after:rounded-full"/>
-                {errors.presenca && <p className="text-sm font-londrina text-danger font-thin">{errors.presenca.message}</p>}
-            </div>
-            <div className="flex flex-col gap-1">
+                <Toggle htmlFor={`presenca-${jogador.id}`}/>
+                {errors.presenca && <Form.errorParagraph>{errors.presenca.message}</Form.errorParagraph>}
+            </Form.fieldContainer>
+            <Form.fieldContainer>
                 <Label htmlFor={`nota-${jogador.id}`}>Nota</Label>
                 <input type="number" step="any" disabled={isLoading} {...register('nota', {valueAsNumber: true})} id={`nota-${jogador.id}`} className="bg-transparent w-20 outline-none font-museo font-thin text-base sm:text-2xl" placeholder="0.00" />
-                {errors.nota && <p className="text-sm font-londrina text-danger font-thin">{errors.nota.message}</p>}
-            </div>
+                {errors.nota && <Form.errorParagraph>{errors.nota.message}</Form.errorParagraph>}
+            </Form.fieldContainer>
 
-            <div className="self-start flex gap-3">
+            <Form.buttonsContainer>
                 <Button disabled={isLoading} type="submit">Salvar</Button>
-                <Button variant="outlined" onClick={() => {reset(); closeForm();}} type="button">Cancelar</Button>
-            </div>
-        </form>
+                <Button variant="outlined" onClick={closeForm} type="button">Cancelar</Button>
+            </Form.buttonsContainer>
+        </Form.root>
     )
 }
