@@ -17,7 +17,7 @@ export const putJogador = async (id: string, body: IBody, options?: IDeleteOptio
     if(body.nome) form.append('nome', body.nome);
     if(body.imagem) form.append('imagem', body.imagem);
     if(body.presenca !== undefined) form.append('presenca', String(body.presenca));
-    if(body.nota) form.append('nota', String(body.nota));
+    if(body.nota !== undefined) form.append('nota', String(body.nota));
     if(body.timeId) form.append('timeId', String(body.timeId));
 
     try {
