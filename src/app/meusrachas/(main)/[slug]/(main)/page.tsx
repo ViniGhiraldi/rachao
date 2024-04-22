@@ -3,12 +3,12 @@ import { Divider } from "@/components/divider";
 import { RachaoLayout } from "@/components/rachao-layout";
 import { getRachao } from "@/services/api/rachas/get-rachao";
 import { CircleDollarSign, Shield, UserRound } from "lucide-react";
-import { Subtitle } from "./components/subtitle";
 import { Settings } from "./components/settings/settings";
 import { FecharListaButton } from "./components/fechar-lista-button";
 import { ReabrirListaButton } from "./components/reabrir-lista-button";
 import { CompartilharListaButton } from "./components/compartilhar-lista-button";
 import { Status } from "@/components/status";
+import { AdicionarJogadorButton } from "./components/adicionar-jogador-button/adicionar-jogador-button";
 
 export default async function Rachao({ params }: {params: {slug: string}}){
     const rachao = await getRachao(params.slug);
@@ -27,7 +27,7 @@ export default async function Rachao({ params }: {params: {slug: string}}){
                             <span className="hidden sm:inline sm:font-museo">{rachao.status ? 'Em aberto' : 'Fechado'}</span>
                         </div>
                     </RachaoLayout.titleContainer>
-                    <Subtitle>{rachao.regras ? rachao.regras : 'As regras do rachão aparecerão aqui...'}</Subtitle>
+                    <RachaoLayout.subtitle>{rachao.regras ? rachao.regras : 'As regras do rachão aparecerão aqui...'}</RachaoLayout.subtitle>
                 </div>
                 <Settings rachao={rachao}/>
             </RachaoLayout.header>
@@ -37,12 +37,7 @@ export default async function Rachao({ params }: {params: {slug: string}}){
             {rachao.status && <CompartilharListaButton rachaoId={rachao.id}/>}
 
             <RachaoLayout.grid>
-                {rachao.status && (
-                    <Card.buttonRoot className="flex flex-col items-center justify-center h-60">
-                        <UserRound size={48} className="text-white"/>
-                        <Card.paragraph>Adicionar jogadores</Card.paragraph>
-                    </Card.buttonRoot>
-                )}
+                {rachao.status && <AdicionarJogadorButton rachaoId={rachao.id}/>}
                 {!rachao.status && (
                     <Card.buttonRoot className="flex flex-col items-center justify-center h-60">
                         <Shield size={48} className="text-white"/>
