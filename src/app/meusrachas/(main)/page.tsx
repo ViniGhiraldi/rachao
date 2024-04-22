@@ -23,7 +23,7 @@ export default async function Meusrachas() {
             {typeof rachas === 'object' && (
                 <RachaoLayout.grid>
                     {rachas.map((rachao, i) => (
-                        <Card.root href={`/meusrachas/${rachao.id}`} className="relative group" key={i}>
+                        <Card.linkRoot href={`/meusrachas/${rachao.id}`} className="relative group" key={i}>
                             <Status status={rachao.status} className="data-[status=true]:animate-pulse absolute top-2 left-2"/>
                             <Card.title>{rachao.nome}</Card.title>
                             <Card.content>
@@ -32,7 +32,7 @@ export default async function Meusrachas() {
                                 <p className="text-primary">Data: <span className="font-kalam text-white">{formatRelative(rachao.diahora, new Date(), { locale: ptBR })}</span></p>
                                 <p className="text-primary">Jogadores: <span className="font-kalam text-white">{rachao._count.jogadores}</span></p>
                             </Card.content>
-                        </Card.root>
+                        </Card.linkRoot>
                     ))}
                 </RachaoLayout.grid>
             )}

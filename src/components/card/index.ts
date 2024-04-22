@@ -1,10 +1,12 @@
 import { Content } from "./content";
 import { Paragraph } from "./paragraph";
-import { Root } from "./root";
+import { LinkRoot } from "./link-root";
 import { Title } from "./title";
+import { ButtonRoot } from "./button-root";
 
 export const Card = {
-    root: Root,
+    linkRoot: LinkRoot,
+    buttonRoot: ButtonRoot,
     title: Title,
     content: Content,
     paragraph: Paragraph
