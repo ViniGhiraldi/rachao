@@ -67,7 +67,7 @@ export default async function Rachao({ params }: {params: {slug: string}}){
                         </div>
                     </Card.linkRoot>
                 )}
-                <Card.linkRoot href="/" className="flex justify-between items-center">
+                <Card.linkRoot href={`/meusrachas/${rachao.id}/despesas`} className="flex justify-between items-center">
                     <CircleDollarSign size={48} className="text-white"/>
                     <div className="text-right">
                         <Card.paragraph>Lista de despesas</Card.paragraph>

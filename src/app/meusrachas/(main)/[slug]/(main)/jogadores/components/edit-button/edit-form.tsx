@@ -98,7 +98,7 @@ export const EditForm = ({jogador, closeForm}: IEditForm) => {
             </Form.fieldContainer>
             <Form.fieldContainer>
                 <Label htmlFor={`nota-${jogador.id}`}>Nota</Label>
-                <input type="number" step="any" disabled={isLoading} {...register('nota', {valueAsNumber: true})} id={`nota-${jogador.id}`} className="bg-transparent w-20 outline-none font-museo font-thin text-base sm:text-2xl" placeholder="0.00" />
+                <input type="number" step="any" disabled={isLoading} {...register('nota', {valueAsNumber: true})} id={`nota-${jogador.id}`} className="bg-transparent w-20 outline-none font-museo font-thin text-base sm:text-2xl" placeholder="0,00" />
                 {errors.nota && <Form.errorParagraph>{errors.nota.message}</Form.errorParagraph>}
             </Form.fieldContainer>
 

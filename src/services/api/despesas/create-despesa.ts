@@ -1,5 +1,6 @@
 import { environment } from "@/environment/environment";
 import { IDespesa } from "@/models/despesa";
+import { revalidateTagOnServer } from "@/utils/revalidate-tag-on-server";
 
 interface IBody extends Pick<IDespesa, 'titulo' | 'quantidade' | 'custoUnitario'>{}
 
@@ -18,7 +19,8 @@ export const createDespesa = async (id: string, body: IBody) => {
         const { data } = await response.json() as {data: IResponse};
 
         if(response.status === 201){
-            //revalidateTagOnServer('');
+            revalidateTagOnServer('get-all-despesas');
+            revalidateTagOnServer('get-rachao');
             return data;
         }
 

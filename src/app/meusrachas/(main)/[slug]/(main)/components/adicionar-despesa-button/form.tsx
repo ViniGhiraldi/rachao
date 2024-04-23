@@ -47,7 +47,7 @@ export const Form = ({rachaoId, closeForm}: IForm) => {
         <ComponentForm.root encType="multipart/form-data" onSubmit={handleSubmit(handleCreateJogador)}>
             <ComponentForm.fieldContainer>
                 <Label htmlFor="titulo">Título</Label>
-                <input type="text" {...register('titulo')} disabled={isLoading} id="titulo" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="Ex.: Luca Gol" />
+                <input type="text" {...register('titulo')} disabled={isLoading} id="titulo" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="Ex.: Aluguel do campo" />
                 {errors.titulo && <ComponentForm.errorParagraph>{errors.titulo.message}</ComponentForm.errorParagraph>}
             </ComponentForm.fieldContainer>
             <ComponentForm.fieldContainer>
@@ -59,7 +59,7 @@ export const Form = ({rachaoId, closeForm}: IForm) => {
                 <Label htmlFor="custoUnitario">Custo Unitário</Label>
                 <div className="flex gap-2 items-center">
                     <label htmlFor="custoUnitario" className="font-museo text-muted text-2xl">R$</label>
-                    <input type="number" step="any" disabled={isLoading} {...register('custoUnitario', {valueAsNumber: true})} id="custoUnitario" className="bg-transparent w-20 outline-none font-museo font-thin text-base sm:text-2xl" placeholder="0.00" />
+                    <input type="number" step="any" disabled={isLoading} {...register('custoUnitario', {valueAsNumber: true})} id="custoUnitario" className="bg-transparent w-20 outline-none font-museo font-thin text-base sm:text-2xl" placeholder="0,00" />
                 </div>
                 {errors.custoUnitario && <ComponentForm.errorParagraph>{errors.custoUnitario.message}</ComponentForm.errorParagraph>}
             </ComponentForm.fieldContainer>

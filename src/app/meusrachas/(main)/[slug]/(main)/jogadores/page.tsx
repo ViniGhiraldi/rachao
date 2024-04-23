@@ -49,7 +49,7 @@ export default async function Jogadores({ params }: { params: { slug: string } }
                                 {!jogador.presenca && <ConfirmarButton jogadorId={jogador.id}/>}
                             </div>
                         </div>
-                        <p className="text-2xl font-light">Nota: <span className="font-museo text-muted">{Number(jogador.nota).toFixed(2).replace('.', ',')}</span></p>
+                        <p className="text-2xl font-light">Nota: <span className="font-museo text-muted">{jogador.nota?.toFixed(2).replace('.', ',')}</span></p>
                     </div>
                 </div>
             ))}

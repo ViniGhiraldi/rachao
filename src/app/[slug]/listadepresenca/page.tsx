@@ -12,6 +12,8 @@ export default async function ListaDePresenca({ params }: { params: { slug: stri
 
     if (typeof rachao === "string") return <RachaoLayout.message className="m-5 md:m-20">{rachao || "Rachão não encontrado ou existente!"}</RachaoLayout.message>
 
+    if (!rachao.status) return <RachaoLayout.message className="m-5 md:m-20">Este rachão está fechado!</RachaoLayout.message>
+
     return (
         <div className="flex justify-center p-3 relative">
             <div className="absolute h-3/4 max-h-screen w-full lg:w-4/5 pointer-events-none">
