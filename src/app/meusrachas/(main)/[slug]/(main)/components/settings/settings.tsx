@@ -63,6 +63,7 @@ export const Settings = ({rachao}: ISettings) => {
             <Modal.root isOpen={modalEditRachaoIsOpen} handleOnClose={() => setModalEditRachaoIsOpen(false)}>
                 <Modal.content className="text-left sm:w-96">
                     <h1>Editar</h1>
+                    <Divider/>
                     <EditForm rachao={rachao} closeForm={() => setModalEditRachaoIsOpen(false)}/>
                 </Modal.content>
             </Modal.root>

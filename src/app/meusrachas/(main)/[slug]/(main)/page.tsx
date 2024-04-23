@@ -9,6 +9,7 @@ import { ReabrirListaButton } from "./components/reabrir-lista-button";
 import { CompartilharListaButton } from "./components/compartilhar-lista-button";
 import { Status } from "@/components/status";
 import { AdicionarJogadorButton } from "./components/adicionar-jogador-button/adicionar-jogador-button";
+import { AdicionarDespesaButton } from "./components/adicionar-despesa-button/adicionar-despesa-button";
 
 export default async function Rachao({ params }: {params: {slug: string}}){
     const rachao = await getRachao(params.slug);
@@ -44,10 +45,7 @@ export default async function Rachao({ params }: {params: {slug: string}}){
                         <Card.paragraph>Adicionar Times</Card.paragraph>
                     </Card.buttonRoot>
                 )}
-                <Card.buttonRoot className="flex flex-col items-center justify-center h-60">
-                    <CircleDollarSign size={48} className="text-white"/>
-                    <Card.paragraph>Adicionar despesa</Card.paragraph>
-                </Card.buttonRoot>
+                <AdicionarDespesaButton rachaoId={rachao.id}/>
             </RachaoLayout.grid>
 
             <Divider/>
