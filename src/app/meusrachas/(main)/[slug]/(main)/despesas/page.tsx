@@ -42,11 +42,11 @@ export default async function Despesas({ params }: { params: { slug: string } })
                     <div className="flex items-center h-8 gap-3 md:gap-4 text-lg" key={i}>
                         <span className="text-2xl font-londrina font-light">{despesa.titulo}</span>
                         <Divider vertical/>
-                        <span className="font-museo">R$ {despesa.custoUnitario.toFixed(2).replace('.', ',')}</span>
+                        <span className="font-museo">{Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(despesa.custoUnitario)}</span>
                         <Divider vertical/>
                         <span className="font-kalam">{despesa.quantidade}x</span>
                         <Divider vertical/>
-                        <span className="font-museo">R$ {despesa.custoTotal.toFixed(2).replace('.', ',')}</span>
+                        <span className="font-museo">{Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(despesa.custoTotal)}</span>
                         <Divider vertical/>
                         <div className="flex gap-2 items-center">
                             <Button icon variant="outlined"><Pen size={20}/></Button>
