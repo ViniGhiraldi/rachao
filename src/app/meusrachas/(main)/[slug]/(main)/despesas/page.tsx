@@ -28,11 +28,11 @@ export default async function Despesas({ params }: { params: { slug: string } })
 
             <Divider />
 
-            <div className="space-y-3 md:space-y-4 w-fit">
-                <div className="flex gap-3 md:gap-4 items-center h-10 ">
-                    <span className="font-londrina text-4xl">Total: <span className="font-museo text-danger">{Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(rachao.custoTotal)}</span></span>
-                    <Divider vertical/>
-                    <span className="font-londrina text-4xl">Total p/ pessoa: <span className="font-museo text-danger">{Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(rachao.custoPessoa)}</span></span>
+            <div className="space-y-3 md:space-y-4 w-fit max-w-full">
+                <div className="flex flex-col sm:flex-row sm:h-8 lg:h-10 sm:gap-3 md:gap-4 w-fit">
+                    <span className="font-londrina text-xl sm:text-2xl lg:text-4xl">Total: <span className="font-museo text-danger">{Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(rachao.custoTotal)}</span></span>
+                    <Divider vertical className="hidden sm:block"/>
+                    <span className="font-londrina text-xl sm:text-2xl lg:text-4xl">Total p/ pessoa: <span className="font-museo text-danger">{Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(rachao.custoPessoa)}</span></span>
                 </div>
 
                 <Divider/>
@@ -40,14 +40,14 @@ export default async function Despesas({ params }: { params: { slug: string } })
                 {(typeof despesas === 'string' || !despesas) ? (
                     <RachaoLayout.message>{despesas || "Não há despesas até o momento."}</RachaoLayout.message>
                 ) : despesas.map((despesa, i) => (
-                    <div className="flex items-center h-8 gap-3 md:gap-4 text-lg" key={i}>
-                        <span className="text-2xl font-londrina font-light">{despesa.titulo}</span>
+                    <div className="flex items-center h-8 gap-2 md:gap-4 text-lg w-full overflow-x-auto overflow-y-hidden" key={i}>
+                        <span className="text-base sm:text-xl md:text-2xl font-londrina font-light whitespace-nowrap">{despesa.titulo}</span>
                         <Divider vertical/>
-                        <span className="font-museo">{Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(despesa.custoUnitario)}</span>
+                        <span className="text-sm md:text-xl font-museo ">{Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(despesa.custoUnitario)}</span>
                         <Divider vertical/>
-                        <span className="font-kalam">{despesa.quantidade}x</span>
+                        <span className="text-sm md:text-xl font-kalam ">{despesa.quantidade}x</span>
                         <Divider vertical/>
-                        <span className="font-museo">{Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(despesa.custoTotal)}</span>
+                        <span className="text-sm md:text-xl font-museo ">{Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(despesa.custoTotal)}</span>
                         <Divider vertical/>
                         <div className="flex gap-2 items-center">
                             <EditButton despesa={despesa} />
