@@ -44,7 +44,7 @@ export const Form = ({rachaoId, closeForm}: IForm) => {
     }
 
     return(
-        <ComponentForm.root encType="multipart/form-data" onSubmit={handleSubmit(handleCreateJogador)}>
+        <ComponentForm.root onSubmit={handleSubmit(handleCreateJogador)}>
             <ComponentForm.fieldContainer>
                 <Label htmlFor="titulo">Título</Label>
                 <input type="text" {...register('titulo')} disabled={isLoading} id="titulo" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="Ex.: Aluguel do campo" />

@@ -6,13 +6,12 @@ import { X } from "lucide-react"
 import { toast } from "sonner";
 
 interface IDeleteButton{
-    rachaoId: string;
     despesaId: string;
 }
 
-export const DeleteButton = ({rachaoId, despesaId}: IDeleteButton) => {
+export const DeleteButton = ({despesaId}: IDeleteButton) => {
     const handleOnDelete = async () => {
-        const result = await deleteDespesa(rachaoId, despesaId);
+        const result = await deleteDespesa(despesaId);
         if(!result){
             toast.success('Despesa deletada!');
         }else{

@@ -1,9 +1,9 @@
 import { environment } from "@/environment/environment";
 import { revalidateTagOnServer } from "@/utils/revalidate-tag-on-server";
 
-export const deleteDespesa = async (rachaoId: string, despesaId: string) => {    
+export const deleteDespesa = async (despesaId: string) => {    
     try {
-        const response = await fetch(`${environment.APIbaseURL}/despesas/${rachaoId}/${despesaId}`, {
+        const response = await fetch(`${environment.APIbaseURL}/despesas/${despesaId}`, {
             method: 'DELETE',
         })
 

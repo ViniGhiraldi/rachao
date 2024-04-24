@@ -71,7 +71,7 @@ export default async function Rachao({ params }: {params: {slug: string}}){
                     <CircleDollarSign size={48} className="text-white"/>
                     <div className="text-right">
                         <Card.paragraph>Lista de despesas</Card.paragraph>
-                        <span className="font-light text-lg text-white">Valor total: {Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(rachao.custoTotal)}</span>
+                        <span className="font-light text-lg text-white">Total p/ pessoa: {Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(rachao.custoPessoa)}</span>
                     </div>
                 </Card.linkRoot>
             </RachaoLayout.grid>

@@ -60,8 +60,8 @@ export const Form = ({rachaoId, closeForm}: IForm) => {
                 {errors.imagem && <ComponentForm.errorParagraph>{errors.imagem.message}</ComponentForm.errorParagraph>}
             </ComponentForm.fieldContainer>
             <ComponentForm.fieldContainer>
-                <Label htmlFor="nome">Nome</Label>
-                <input type="text" {...register('nome')} disabled={isLoading} id="nome" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="Ex.: Luca Gol" />
+                <Label htmlFor="nomejogador">Nome</Label>
+                <input type="text" {...register('nome')} disabled={isLoading} id="nomejogador" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="Ex.: Luca Gol" />
                 {errors.nome && <ComponentForm.errorParagraph>{errors.nome.message}</ComponentForm.errorParagraph>}
             </ComponentForm.fieldContainer>
             <ComponentForm.fieldContainer>

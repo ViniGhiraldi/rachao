@@ -5,6 +5,7 @@ import { getAllDespesas } from "@/services/api/despesas/get-all-despesas";
 import { getRachao } from "@/services/api/rachas/get-rachao";
 import { Pen, Plus, X } from "lucide-react";
 import { DeleteButton } from "./components/delete-button";
+import { EditButton } from "./components/edit-button/edit-button";
 
 export default async function Despesas({ params }: { params: { slug: string } }) {
     const despesas = await getAllDespesas(params.slug);
@@ -49,8 +50,8 @@ export default async function Despesas({ params }: { params: { slug: string } })
                         <span className="font-museo">{Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(despesa.custoTotal)}</span>
                         <Divider vertical/>
                         <div className="flex gap-2 items-center">
-                            <Button icon variant="outlined"><Pen size={20}/></Button>
-                            <DeleteButton rachaoId={rachao.id} despesaId={despesa.id}/>
+                            <EditButton despesa={despesa} />
+                            <DeleteButton despesaId={despesa.id}/>
                         </div>
                     </div>
                 ))}
