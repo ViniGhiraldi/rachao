@@ -10,6 +10,7 @@ import { CompartilharListaButton } from "./components/compartilhar-lista-button"
 import { Status } from "@/components/status";
 import { AdicionarJogadorButton } from "./components/adicionar-jogador-button/adicionar-jogador-button";
 import { AdicionarDespesaButton } from "./components/adicionar-despesa-button/adicionar-despesa-button";
+import { AdicionarTimeButton } from "./components/adicionar-time-button/adicionar-time-button";
 
 export default async function Rachao({ params }: {params: {slug: string}}){
     const rachao = await getRachao(params.slug);
@@ -39,12 +40,7 @@ export default async function Rachao({ params }: {params: {slug: string}}){
 
             <RachaoLayout.grid>
                 {rachao.status && <AdicionarJogadorButton rachaoId={rachao.id}/>}
-                {!rachao.status && (
-                    <Card.buttonRoot className="flex flex-col items-center justify-center h-60">
-                        <Shield size={48} className="text-white"/>
-                        <Card.paragraph>Adicionar Times</Card.paragraph>
-                    </Card.buttonRoot>
-                )}
+                {!rachao.status && <AdicionarTimeButton rachaoId={rachao.id} />}
                 <AdicionarDespesaButton rachaoId={rachao.id}/>
             </RachaoLayout.grid>
 

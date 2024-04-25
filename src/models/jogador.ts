@@ -8,5 +8,5 @@ export interface IJogador{
     nota?: number;
     presenca: boolean;
     createdAt: Date;
-    imagem?: IImagem
+    imagem?: IImagem | null
 }

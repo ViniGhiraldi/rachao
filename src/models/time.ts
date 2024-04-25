@@ -6,5 +6,5 @@ export interface ITime{
     nome: string;
     createdAt: Date;
     jogadores: IJogador[]
-    imagem?: IImagem
+    imagem?: IImagem | null
 }
