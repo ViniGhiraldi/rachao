@@ -29,20 +29,20 @@ export default async function Jogadores({ params }: { params: { slug: string } }
             {(typeof jogadores === 'string' || !jogadores) ? (
                 <RachaoLayout.message>{jogadores || "Não há jogadores até o momento."}</RachaoLayout.message>
             ) : jogadores.map(jogador => (
-                <div className="flex gap-4 items-start h-32 w-fit" key={jogador.id}>
+                <div className="flex gap-4 items-start h-36 w-fit" key={jogador.id}>
                     {jogador.imagem ? (
-                        <img src={jogador.imagem?.url} alt={jogador.nome} className="h-full w-auto max-w-32 object-cover rounded-lg" />
+                        <img src={jogador.imagem?.url} alt={jogador.nome} className="h-full w-auto max-w-36 object-cover rounded-lg" />
                     ) : (
-                        <UserRound className="h-full w-32 border-2 border-primary rounded-md" />
+                        <UserRound className="h-full w-36" />
                     )}
                     <Divider vertical />
                     <div className="h-full flex flex-col font-londrina">
                         <div className="flex-1">
                             <div className="flex gap-3 items-center">
                                 <Status status={jogador.presenca}/>
-                                <Paragraph>{jogador.nome}</Paragraph>
+                                <Paragraph className="line-clamp-1">{jogador.nome}</Paragraph>
                             </div>
-                            {jogador.time && <p className="font-light">Time: <span className="font-kalam font-bold">{jogador.time.nome}</span></p>}
+                            <p className="font-light text-lg">Time: <span className="font-kalam font-bold">Templários FC</span></p>
                             <div className="flex gap-2 items-center">
                                 <EditButton jogador={jogador} />
                                 <DeleteButton jogadorId={jogador.id} />

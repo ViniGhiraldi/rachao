@@ -55,7 +55,7 @@ export default async function Rachao({ params }: {params: {slug: string}}){
                     </div>
                 </Card.linkRoot>
                 {!rachao.status && (
-                    <Card.linkRoot href="/" className="flex justify-between items-center">
+                    <Card.linkRoot href={`/meusrachas/${rachao.id}/times`} className="flex justify-between items-center">
                         <Shield size={48} className="text-white"/>
                         <div className="text-right">
                             <Card.paragraph>Lista de times</Card.paragraph>

@@ -38,7 +38,7 @@ export default async function ListaDePresenca({ params }: { params: { slug: stri
                                     ) : (
                                         <UserRound className="size-16 border-2 border-primary rounded-md" />
                                     )}
-                                    <span className="font-kalam text-2xl">{jogador.nome}</span>
+                                    <span className="font-kalam text-2xl line-clamp-2">{jogador.nome}</span>
                                 </div>
                             ))}
                         </div>

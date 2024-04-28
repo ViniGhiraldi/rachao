@@ -53,7 +53,7 @@ export const Form = ({rachaoId, closeForm}: IForm) => {
             <ComponentForm.fieldContainer>
                 <input type="file" {...register('imagem')} disabled={isLoading} onChange={e => setImagem(e.currentTarget.files?.item(0))} id="imagem" className="sr-only" />
                 <ComponentForm.imageArea htmlFor="imagem">
-                    {imagem ? <ComponentForm.image src={URL.createObjectURL(imagem)}/> : <ComponentForm.textImage>Clique para adicionar um escudo</ComponentForm.textImage>}
+                    {imagem ? <ComponentForm.image src={URL.createObjectURL(imagem)}/> : <ComponentForm.textImage>Clique para adicionar uma imagem</ComponentForm.textImage>}
                 </ComponentForm.imageArea>
                 {errors.imagem && <ComponentForm.errorParagraph>{errors.imagem.message}</ComponentForm.errorParagraph>}
             </ComponentForm.fieldContainer>

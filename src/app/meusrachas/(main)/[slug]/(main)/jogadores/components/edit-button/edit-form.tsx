@@ -78,7 +78,7 @@ export const EditForm = ({jogador, closeForm}: IEditForm) => {
             <Form.fieldContainer className="relative">
                 <input type="file" {...register('imagem')} disabled={isLoading} onChange={e => setImagem(e.currentTarget.files?.item(0))} id={`imagem-${jogador.id}`} className="sr-only" />
                 <Form.imageArea htmlFor={`imagem-${jogador.id}`}>
-                    {imagem ? <Form.image src={typeof imagem === 'string' ? imagem : URL.createObjectURL(imagem)}/> : <Form.textImage>Clique para adicionar uma foto</Form.textImage>}
+                    {imagem ? <Form.image src={typeof imagem === 'string' ? imagem : URL.createObjectURL(imagem)}/> : <Form.textImage>Clique para adicionar uma imagem</Form.textImage>}
                 </Form.imageArea>
                 <Button className="absolute right-0 bottom-0" variant="outlined" icon type="button" onClick={handleDeleteImage}>
                     <Trash2 className="text-danger" size={28}/>
