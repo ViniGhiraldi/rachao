@@ -3,8 +3,7 @@
 import { Button } from "@/components/button";
 import { Form as ComponentForm } from "@/components/form";
 import { Label } from "@/components/label";
-import { Toggle } from "@/components/toggle";
-import { createJogador } from "@/services/api/jogadores/create-jogador";
+import { createTime } from "@/services/api/times/create-time";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -13,7 +12,6 @@ import { z } from "zod";
 
 const schema = z.object({
     nome: z.string().trim().min(1, 'Este campo é obrigatório.'),
-    presenca: z.boolean(),
     imagem: z
     .custom<FileList>()
     .transform((file) => {
@@ -28,7 +26,7 @@ interface IForm{
     closeForm: () => void;
 }
 
-export const Form = ({rachaoId, closeForm}: IForm) => {
+export const AdicionarTimeForm = ({rachaoId, closeForm}: IForm) => {
     const [imagem, setImagem] = useState<File | null>();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -38,9 +36,9 @@ export const Form = ({rachaoId, closeForm}: IForm) => {
 
     const handleCreateJogador = async (data: Schema) => {
         setIsLoading(true);
-        const result = await createJogador(rachaoId, data);
+        const result = await createTime(rachaoId, data);
         if(typeof result === 'object'){
-            toast.success(`${result.nome} entrou pra lista!`);
+            toast.success(`${result.nome} adicionado com sucesso!`);
             reset();
             setImagem(null);
             closeForm();
@@ -60,15 +58,9 @@ export const Form = ({rachaoId, closeForm}: IForm) => {
                 {errors.imagem && <ComponentForm.errorParagraph>{errors.imagem.message}</ComponentForm.errorParagraph>}
             </ComponentForm.fieldContainer>
             <ComponentForm.fieldContainer>
-                <Label htmlFor="nomejogador">Nome</Label>
-                <input type="text" {...register('nome')} disabled={isLoading} id="nomejogador" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="Ex.: Luca Gol" />
+                <Label htmlFor="nometime">Nome</Label>
+                <input type="text" {...register('nome')} disabled={isLoading} id="nometime" autoComplete="off" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="Ex.: Rachão FC" />
                 {errors.nome && <ComponentForm.errorParagraph>{errors.nome.message}</ComponentForm.errorParagraph>}
-            </ComponentForm.fieldContainer>
-            <ComponentForm.fieldContainer>
-                <Label htmlFor="presenca">Presença</Label>
-                <input type="checkbox" {...register('presenca')} disabled={isLoading} id="presenca" defaultChecked className="peer sr-only" />
-                <Toggle htmlFor="presenca"/>
-                {errors.presenca && <ComponentForm.errorParagraph>{errors.presenca.message}</ComponentForm.errorParagraph>}
             </ComponentForm.fieldContainer>
             <ComponentForm.buttonsContainer>
                 <Button disabled={isLoading} type="submit">Adicionar</Button>

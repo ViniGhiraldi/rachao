@@ -12,7 +12,7 @@ import { z } from "zod";
 
 const schema = z.object({
     titulo: z.string().trim().min(1, 'Este campo é obrigatório.'),
-    quantidade: z.number({invalid_type_error: 'Este campo é obrigatório.'}).int({message: 'Apenas números inteiros são aceitos.'}).nonnegative({message: 'O valor mínimo é 1.'}),
+    quantidade: z.number({invalid_type_error: 'Este campo é obrigatório.'}).int({message: 'Apenas números inteiros são aceitos.'}).positive({message: 'O valor mínimo é 1.'}),
     custoUnitario: z.number({invalid_type_error: 'Este campo é obrigatório.'}).nonnegative({message: 'O valor deve ser maior que 0.'}).multipleOf(0.01, {message: 'O valor deve ter no máximo 2 casas decimais.'})
 })
 
@@ -23,11 +23,14 @@ interface IForm{
     closeForm: () => void;
 }
 
-export const Form = ({rachaoId, closeForm}: IForm) => {
+export const AdicionarDespesaForm = ({rachaoId, closeForm}: IForm) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm<Schema>({
-        resolver: zodResolver(schema)
+        resolver: zodResolver(schema),
+        defaultValues: {
+            quantidade: 1
+        }
     });
 
     const handleCreateJogador = async (data: Schema) => {

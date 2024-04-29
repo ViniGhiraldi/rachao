@@ -7,9 +7,14 @@ import { DeleteButton } from "./components/delete-button";
 import { EditButton } from "./components/edit-button/edit-button";
 import { Status } from "@/components/status";
 import { ConfirmarButton } from "./components/confirmar-button";
+import { AdicionarJogadorButton } from "./components/adicionar-jogador-button";
+import { getRachao } from "@/services/api/rachas/get-rachao";
 
 export default async function Jogadores({ params }: { params: { slug: string } }) {
     const jogadores = await getAllJogadores(params.slug, 'presenca');
+    const rachao = await getRachao(params.slug);
+
+    if(typeof rachao === 'string' || !rachao) return <RachaoLayout.message>{rachao || "Rachão não encontrado ou existente!"}</RachaoLayout.message>
 
     return (
         <RachaoLayout.container>
@@ -18,10 +23,7 @@ export default async function Jogadores({ params }: { params: { slug: string } }
                     <RachaoLayout.navigateBack />
                     <RachaoLayout.title>Lista de jogadores</RachaoLayout.title>
                 </RachaoLayout.titleContainer>
-                <RachaoLayout.link href="/" className="flex items-center gap-1">
-                    <Plus className="text-primary" size={28} />
-                    <span className="hidden sm:inline-block">Add jogador</span>
-                </RachaoLayout.link>
+                <AdicionarJogadorButton rachaoId={rachao.id}/>
             </RachaoLayout.header>
 
             <Divider />
@@ -42,7 +44,7 @@ export default async function Jogadores({ params }: { params: { slug: string } }
                                 <Status status={jogador.presenca}/>
                                 <Paragraph className="line-clamp-1">{jogador.nome}</Paragraph>
                             </div>
-                            <p className="font-light text-lg">Time: <span className="font-kalam font-bold">Templários FC</span></p>
+                            {jogador.time && <p className="font-light text-lg">Time: <span className="font-kalam font-bold">{jogador.time.nome}</span></p>}
                             <div className="flex gap-2 items-center">
                                 <EditButton jogador={jogador} />
                                 <DeleteButton jogadorId={jogador.id} />

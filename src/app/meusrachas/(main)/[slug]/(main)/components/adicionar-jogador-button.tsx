@@ -1,11 +1,9 @@
 'use client'
 
 import { Card } from "@/components/card"
-import { Modal } from "@/components/modal"
 import { UserRound } from "lucide-react"
 import { useState } from "react"
-import { Form } from "./form"
-import { Divider } from "@/components/divider"
+import { AdicionarJogadorModal } from "@/components/adicionar-jogador-modal/adicionar-jogador-modal"
 
 interface IAdicionarJogadorButton{
     rachaoId: string;
@@ -20,13 +18,7 @@ export const AdicionarJogadorButton = ({rachaoId}: IAdicionarJogadorButton) => {
                 <UserRound size={48} className="text-white" />
                 <Card.paragraph>Adicionar jogador</Card.paragraph>
             </Card.buttonRoot>
-            <Modal.root isOpen={isOpen} handleOnClose={() => setIsOpen(false)}>
-                <Modal.content className="text-left sm:w-96">
-                    <h1>Adicionar jogador</h1>
-                    <Divider/>
-                    <Form rachaoId={rachaoId} closeForm={() => setIsOpen(false)}/>
-                </Modal.content>
-            </Modal.root>
+            <AdicionarJogadorModal rachaoId={rachaoId} isOpen={isOpen} handleOnClose={() => setIsOpen(false)}/>
         </>
     )
 }

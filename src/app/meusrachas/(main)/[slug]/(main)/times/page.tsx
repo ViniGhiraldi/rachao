@@ -5,9 +5,14 @@ import { getAllTimes } from "@/services/api/times/get-all-times";
 import { Plus, Shield } from "lucide-react";
 import { EditButton } from "./components/edit-button/edit-button";
 import { DeleteButton } from "./components/delete-button";
+import { AdicionarTimeButton } from "./components/adicionar-time-button";
+import { getRachao } from "@/services/api/rachas/get-rachao";
 
 export default async function Times({ params }: { params: { slug: string } }) {
     const times = await getAllTimes(params.slug);
+    const rachao = await getRachao(params.slug);
+
+    if(typeof rachao === 'string' || !rachao) return <RachaoLayout.message>{rachao || "Rachão não encontrado ou existente!"}</RachaoLayout.message>
 
     return (
         <RachaoLayout.container>
@@ -16,10 +21,7 @@ export default async function Times({ params }: { params: { slug: string } }) {
                     <RachaoLayout.navigateBack />
                     <RachaoLayout.title>Lista de times</RachaoLayout.title>
                 </RachaoLayout.titleContainer>
-                <RachaoLayout.link href="/" className="flex items-center gap-1">
-                    <Plus className="text-primary" size={28} />
-                    <span className="hidden sm:inline-block">Add time</span>
-                </RachaoLayout.link>
+                <AdicionarTimeButton rachaoId={rachao.id}/>
             </RachaoLayout.header>
 
             <Divider />

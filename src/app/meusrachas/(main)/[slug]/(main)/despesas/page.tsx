@@ -6,6 +6,7 @@ import { getRachao } from "@/services/api/rachas/get-rachao";
 import { Pen, Plus, X } from "lucide-react";
 import { DeleteButton } from "./components/delete-button";
 import { EditButton } from "./components/edit-button/edit-button";
+import { AdicionarDespesaButton } from "./components/adicionar-despesa-button";
 
 export default async function Despesas({ params }: { params: { slug: string } }) {
     const despesas = await getAllDespesas(params.slug);
@@ -20,10 +21,7 @@ export default async function Despesas({ params }: { params: { slug: string } })
                     <RachaoLayout.navigateBack />
                     <RachaoLayout.title>Lista de despesas</RachaoLayout.title>
                 </RachaoLayout.titleContainer>
-                <RachaoLayout.link href="/" className="flex items-center gap-1">
-                    <Plus className="text-primary" size={28} />
-                    <span className="hidden sm:inline-block">Add despesa</span>
-                </RachaoLayout.link>
+                <AdicionarDespesaButton rachaoId={rachao.id}/>
             </RachaoLayout.header>
 
             <Divider />
@@ -40,7 +38,7 @@ export default async function Despesas({ params }: { params: { slug: string } })
                 {(typeof despesas === 'string' || !despesas) ? (
                     <RachaoLayout.message>{despesas || "Não há despesas até o momento."}</RachaoLayout.message>
                 ) : despesas.map((despesa, i) => (
-                    <div className="flex items-center h-8 gap-2 md:gap-4 text-lg w-full overflow-x-auto overflow-y-hidden" key={i}>
+                    <div className="flex items-center h-10 gap-2 md:gap-4 text-lg w-full overflow-x-auto overflow-y-hidden" key={i}>
                         <span className="text-base sm:text-xl md:text-2xl font-londrina font-light whitespace-nowrap">{despesa.titulo}</span>
                         <Divider vertical/>
                         <span className="text-sm md:text-xl font-museo ">{Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(despesa.custoUnitario)}</span>

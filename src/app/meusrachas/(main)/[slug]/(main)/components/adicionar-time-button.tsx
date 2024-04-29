@@ -1,11 +1,9 @@
 'use client'
 
 import { Card } from "@/components/card"
-import { Modal } from "@/components/modal"
 import { Shield } from "lucide-react"
 import { useState } from "react"
-import { Form } from "./form"
-import { Divider } from "@/components/divider"
+import { AdicionarTimeModal } from "@/components/adicionar-time-modal/adicionar-time-modal"
 
 interface IAdicionarTimeButton{
     rachaoId: string;
@@ -20,13 +18,7 @@ export const AdicionarTimeButton = ({rachaoId}: IAdicionarTimeButton) => {
                 <Shield size={48} className="text-white" />
                 <Card.paragraph>Adicionar time</Card.paragraph>
             </Card.buttonRoot>
-            <Modal.root isOpen={isOpen} handleOnClose={() => setIsOpen(false)}>
-                <Modal.content className="text-left sm:w-96">
-                    <h1>Adicionar time</h1>
-                    <Divider/>
-                    <Form rachaoId={rachaoId} closeForm={() => setIsOpen(false)}/>
-                </Modal.content>
-            </Modal.root>
+            <AdicionarTimeModal rachaoId={rachaoId} isOpen={isOpen} handleOnClose={() => setIsOpen(false)}/>
         </>
     )
 }

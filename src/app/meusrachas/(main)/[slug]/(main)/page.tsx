@@ -8,9 +8,9 @@ import { FecharListaButton } from "./components/fechar-lista-button";
 import { ReabrirListaButton } from "./components/reabrir-lista-button";
 import { CompartilharListaButton } from "./components/compartilhar-lista-button";
 import { Status } from "@/components/status";
-import { AdicionarJogadorButton } from "./components/adicionar-jogador-button/adicionar-jogador-button";
-import { AdicionarDespesaButton } from "./components/adicionar-despesa-button/adicionar-despesa-button";
-import { AdicionarTimeButton } from "./components/adicionar-time-button/adicionar-time-button";
+import { AdicionarJogadorButton } from "./components/adicionar-jogador-button";
+import { AdicionarDespesaButton } from "./components/adicionar-despesa-button";
+import { AdicionarTimeButton } from "./components/adicionar-time-button";
 
 export default async function Rachao({ params }: {params: {slug: string}}){
     const rachao = await getRachao(params.slug);
