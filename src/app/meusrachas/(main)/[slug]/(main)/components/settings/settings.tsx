@@ -52,7 +52,7 @@ export const Settings = ({rachao}: ISettings) => {
     }
 
     return(
-        <div className="relative flex flex-col items-end md:items-center">
+        <div className="relative flex flex-col items-end">
             <Button variant="outlined" icon onClick={handleOnClickDropdown}><SettingsIcon size={28}/></Button>
             <Dropdown.root isOpen={dropdownIsOpen}>
                 <Dropdown.paragraph className="font-semibold">Configurações</Dropdown.paragraph>
