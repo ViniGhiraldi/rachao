@@ -2,13 +2,11 @@ import { Divider } from "@/components/divider";
 import { Paragraph } from "@/components/paragraph";
 import { RachaoLayout } from "@/components/rachao-layout";
 import { getAllTimes } from "@/services/api/times/get-all-times";
-import { Shield } from "lucide-react";
-import { EditButton } from "./components/edit-button/edit-button";
-import { DeleteButton } from "./components/delete-button";
-import { AdicionarTimeButton } from "./components/adicionar-time-button";
+import { Plus, Shield } from "lucide-react";
 import { getRachao } from "@/services/api/rachas/get-rachao";
+import Link from "next/link";
 
-export default async function Times({ params }: { params: { slug: string } }) {
+export default async function Elencos({ params }: { params: { slug: string } }) {
     const times = await getAllTimes(params.slug);
     const rachao = await getRachao(params.slug);
 
@@ -19,9 +17,9 @@ export default async function Times({ params }: { params: { slug: string } }) {
             <RachaoLayout.header>
                 <RachaoLayout.titleContainer>
                     <RachaoLayout.navigateBack />
-                    <RachaoLayout.title>Lista de times</RachaoLayout.title>
+                    <RachaoLayout.title>Central de Elencos</RachaoLayout.title>
                 </RachaoLayout.titleContainer>
-                <AdicionarTimeButton rachaoId={rachao.id}/>
+                {/* <AdicionarTimeButton rachaoId={rachao.id}/> */}
             </RachaoLayout.header>
 
             <Divider />
@@ -40,12 +38,8 @@ export default async function Times({ params }: { params: { slug: string } }) {
                         <div className="flex-1">
                             <Paragraph className="line-clamp-1">{time.nome}</Paragraph>
                             <p className="font-light text-lg">Jogadores: <span className="font-kalam font-bold">{time._count.jogadores}</span></p>
-                            <div className="flex gap-2 items-center">
-                                <EditButton time={time} />
-                                <DeleteButton timeId={time.id} />
-                            </div>
+                            <Link href={`/meusrachas/${rachao.id}/elencos/${time.id}`} className="text-xl font-light flex items-center gap-2"><Plus size={28} className="text-primary"/> add jogadores</Link>
                         </div>
-                        <p className="text-2xl font-light text-primary">Vitórias: <span className="font-museo text-muted">{time._count.resultadosTimeVencedor}</span></p>
                     </div>
                 </div>
             ))}

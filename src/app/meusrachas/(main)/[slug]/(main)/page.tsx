@@ -2,7 +2,7 @@ import { Card } from "@/components/card";
 import { Divider } from "@/components/divider";
 import { RachaoLayout } from "@/components/rachao-layout";
 import { getRachao } from "@/services/api/rachas/get-rachao";
-import { CircleDollarSign, Shield, UserRound } from "lucide-react";
+import { CircleDollarSign, CornerDownRight, FerrisWheel, Shield, UserRound, UsersRound } from "lucide-react";
 import { Settings } from "./components/settings/settings";
 import { FecharListaButton } from "./components/fechar-lista-button";
 import { ReabrirListaButton } from "./components/reabrir-lista-button";
@@ -11,6 +11,8 @@ import { Status } from "@/components/status";
 import { AdicionarJogadorButton } from "./components/adicionar-jogador-button";
 import { AdicionarDespesaButton } from "./components/adicionar-despesa-button";
 import { AdicionarTimeButton } from "./components/adicionar-time-button";
+import { Button } from "@/components/button";
+import Link from "next/link";
 
 export default async function Rachao({ params }: {params: {slug: string}}){
     const rachao = await getRachao(params.slug);
@@ -75,7 +77,14 @@ export default async function Rachao({ params }: {params: {slug: string}}){
             <Divider/>
 
             {rachao.status && <FecharListaButton rachaoId={rachao.id}/>}
-            {!rachao.status && <ReabrirListaButton rachaoId={rachao.id}/>}
+            {!rachao.status && (
+                <div className="flex gap-6">
+                    <ReabrirListaButton rachaoId={rachao.id}/>
+                    <Link href={`/meusrachas/${rachao.id}/elencos`} className="flex gap-2 items-center"><UsersRound size={28}/>Central de elencos</Link>
+                    <Button className="flex gap-2 items-center"><FerrisWheel size={28}/>Sorteio</Button>
+                    <Button variant="outlined" className="flex items-center gap-3">Fechar lista <CornerDownRight size={28}/></Button>
+                </div>
+            )}
         </RachaoLayout.container>
     )
 }
