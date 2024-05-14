@@ -28,7 +28,7 @@ export default async function Time({ params }: { params: { slug: string; timeId:
             {time.time.jogadores.length > 0 ? (
                 <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-5 gap-4">
                     {time.time.jogadores.map(jogador => (
-                        <div className="flex flex-col p-4 rounded-lg shadow border max-w-full" key={jogador.id}>
+                        <div className="flex flex-col p-4 rounded-lg shadow border bg-white max-w-full" key={jogador.id}>
                             {jogador.imagem ? (
                                 <Avatar src={jogador.imagem?.url} alt={jogador.nome} className="self-center" />
                             ) : (
@@ -48,22 +48,22 @@ export default async function Time({ params }: { params: { slug: string; timeId:
             {time.jogadores.length > 0 && (
                 <>
                 <Divider/>
-                <Paragraph className="">Mais jogadores</Paragraph>
+                <Paragraph className="">Jogadores disponíveis</Paragraph>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     {time.jogadores.map((jogador) => (
-                        <div className="flex gap-4 items-start h-28 border shadow bg-white rounded-lg p-2 max-w-full" key={jogador.id}>
+                        <div className="flex gap-2 items-start border shadow bg-white rounded-lg p-2 max-w-full overflow-hidden" key={jogador.id}>
                             {jogador.imagem ? (
                                 <Avatar src={jogador.imagem?.url} alt={jogador.nome} className="size-24" />
                             ) : (
                                 <UserRound className="size-24 shrink-0" />
                             )}
-                            <div className="overflow-hidden">
+                            <div className="">
                                 <div className="flex gap-2 items-center">
                                     <Status status={jogador.presenca}/>
                                     <Paragraph className="line-clamp-1 text-2xl">{jogador.nome}</Paragraph>
                                 </div>
                                 {jogador.time && <p className="font-light text-sm line-clamp-1">Time: <span className="font-kalam font-bold">{jogador.time.nome}</span></p>}
-                                <AddButton jogadorId={jogador.id} timeId={time.time.id}>{jogador.time ? 'Alterar' : 'Add'}</AddButton>
+                                <AddButton jogadorId={jogador.id} timeId={time.time.id}/>
                             </div>
                         </div>
                     ))}

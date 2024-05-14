@@ -1,7 +1,8 @@
 'use client'
 
+import { Button } from "@/components/button";
 import { putJogador } from "@/services/api/jogadores/put-jogador"
-import { Plus } from "lucide-react"
+import { Plus, UserRoundPlus } from "lucide-react"
 import { toast } from "sonner";
 import { twMerge } from "tailwind-merge";
 
@@ -10,7 +11,7 @@ interface IAddButton extends React.ComponentProps<'button'>{
     timeId: string;
 }
 
-export const AddButton = ({jogadorId, timeId, className, children = 'Add', ...rest}: IAddButton) => {
+export const AddButton = ({jogadorId, timeId, ...rest}: IAddButton) => {
     const handleAdd = async () => {
         const result = await putJogador(jogadorId, {timeId});
         if(result === 'As alterações foram salvas!'){
@@ -20,5 +21,5 @@ export const AddButton = ({jogadorId, timeId, className, children = 'Add', ...re
         }
     }
 
-    return <button className={twMerge("flex items-center gap-2", className)} onClick={handleAdd} {...rest}><Plus size={24} className="text-primary"/> {children}</button>
+    return <Button variant="outlined" icon onClick={handleAdd} {...rest}><UserRoundPlus size={24} className="text-primary"/></Button>
 }

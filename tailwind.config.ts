@@ -22,6 +22,9 @@ const config: Config = {
         "muted": "#767676",
         "muted-foreground": "#9A9A9A",
         "danger": "#E73C3C"
+      },
+      brightness: {
+        "80": ".80"
       }
     },
   },
