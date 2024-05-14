@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Form } from "./components/form";
 import { RachaoLayout } from "@/components/rachao-layout";
 import { getAllJogadores } from "@/services/api/jogadores/get-all-jogadores";
+import { Avatar } from "@/components/avatar";
 
 export default async function ListaDePresenca({ params }: { params: { slug: string } }) {
     const rachao = await getRachao(params.slug);
@@ -34,9 +35,9 @@ export default async function ListaDePresenca({ params }: { params: { slug: stri
                             {jogadores.map((jogador, i) => (
                                 <div className="flex gap-4 items-center" key={i}>
                                     {jogador.imagem ? (
-                                        <img src={jogador.imagem?.url} alt={jogador.nome} className="size-16 rounded-md aspect-square object-cover" />
+                                        <Avatar src={jogador.imagem?.url} alt={jogador.nome} className="size-16" />
                                     ) : (
-                                        <UserRound className="size-16 border-2 border-primary rounded-md" />
+                                        <UserRound className="size-16 shrink-0" />
                                     )}
                                     <span className="font-kalam text-2xl line-clamp-2">{jogador.nome}</span>
                                 </div>

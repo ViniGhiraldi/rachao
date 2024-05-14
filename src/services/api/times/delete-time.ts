@@ -9,6 +9,8 @@ export const deleteTime = async (id: string) => {
 
         if(response.status === 200){
             revalidateTagOnServer('get-all-times');
+            revalidateTagOnServer('get-all-jogadores');
+            revalidateTagOnServer('get-time');
             revalidateTagOnServer('get-rachao');
             return;
         }

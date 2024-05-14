@@ -23,6 +23,8 @@ export const putTime = async (id: string, body: IBody, options?: IDeleteOptions)
 
         if(response.status === 200){
             revalidateTagOnServer('get-all-times');
+            revalidateTagOnServer('get-time');
+            revalidateTagOnServer('get-all-jogadores');
             return `As alterações foram salvas!`
         }
 

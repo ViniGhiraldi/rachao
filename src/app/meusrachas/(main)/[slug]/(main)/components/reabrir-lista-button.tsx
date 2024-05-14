@@ -24,5 +24,5 @@ export const ReabrirListaButton = ({rachaoId}: IReabrirListaButton) => {
         setIsLoading(false);
     }
 
-    return <Button onClick={handleOnClick} variant="outlined" disabled={isLoading} className="flex items-center gap-3"><CornerDownLeft size={28}/> Reabrir lista</Button>
+    return <Button onClick={handleOnClick} variant="outlined" disabled={isLoading} className="flex items-center gap-3 font-museo tracking-tight"><CornerDownLeft size={28}/> Reabrir lista</Button>
 }

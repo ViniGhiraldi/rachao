@@ -1,9 +1,12 @@
+import { CircleCheck, CircleHelp, LucideProps } from "lucide-react"
 import { twMerge } from "tailwind-merge"
 
-interface IStatus extends React.ComponentProps<'div'>{
+interface IStatus extends LucideProps{
     status: boolean
 }
 
 export const Status = ({status, className, ...rest}: IStatus) => {
-    return <div data-status={status} className={twMerge("data-[status=true]:bg-primary data-[status=false]:bg-danger size-3 shrink-0 rounded-full", className)} {...rest}/>
+
+    if(status) return <CircleCheck size={24} className={twMerge("text-primary shrink-0", className)} {...rest}/>
+    return <CircleHelp size={24} className={twMerge("text-danger shrink-0", className)} {...rest}/>
 }

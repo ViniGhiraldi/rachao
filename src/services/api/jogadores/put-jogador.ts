@@ -28,6 +28,8 @@ export const putJogador = async (id: string, body: IBody, options?: IDeleteOptio
 
         if(response.status === 200){
             revalidateTagOnServer('get-all-jogadores');
+            revalidateTagOnServer('get-all-times');
+            revalidateTagOnServer('get-time');
             return `As alterações foram salvas!`
         }
 

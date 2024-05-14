@@ -9,6 +9,7 @@ import { Status } from "@/components/status";
 import { ConfirmarButton } from "./components/confirmar-button";
 import { AdicionarJogadorButton } from "./components/adicionar-jogador-button";
 import { getRachao } from "@/services/api/rachas/get-rachao";
+import { Avatar } from "@/components/avatar";
 
 export default async function Jogadores({ params }: { params: { slug: string } }) {
     const jogadores = await getAllJogadores(params.slug, 'presenca');
@@ -33,12 +34,12 @@ export default async function Jogadores({ params }: { params: { slug: string } }
             ) : jogadores.map(jogador => (
                 <div className="flex gap-4 items-start h-36 w-fit" key={jogador.id}>
                     {jogador.imagem ? (
-                        <img src={jogador.imagem?.url} alt={jogador.nome} className="h-full w-auto max-w-36 object-cover rounded-lg" />
+                        <Avatar src={jogador.imagem?.url} alt={jogador.nome}/>
                     ) : (
-                        <UserRound className="h-full w-36" />
+                        <UserRound className="shrink-0 size-36" />
                     )}
                     <Divider vertical />
-                    <div className="h-full flex flex-col font-londrina">
+                    <div className="h-full flex flex-col">
                         <div className="flex-1">
                             <div className="flex gap-3 items-center">
                                 <Status status={jogador.presenca}/>

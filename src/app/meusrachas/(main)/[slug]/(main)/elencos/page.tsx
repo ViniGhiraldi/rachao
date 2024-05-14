@@ -5,6 +5,7 @@ import { getAllTimes } from "@/services/api/times/get-all-times";
 import { Plus, Shield } from "lucide-react";
 import { getRachao } from "@/services/api/rachas/get-rachao";
 import Link from "next/link";
+import { Avatar } from "@/components/avatar";
 
 export default async function Elencos({ params }: { params: { slug: string } }) {
     const times = await getAllTimes(params.slug);
@@ -29,16 +30,16 @@ export default async function Elencos({ params }: { params: { slug: string } }) 
             ) : times.map(time => (
                 <div className="flex gap-4 items-start h-36 w-fit" key={time.id}>
                     {time.imagem ? (
-                        <img src={time.imagem?.url} alt={time.nome} className="h-full w-auto max-w-36 object-cover rounded-lg" />
+                        <Avatar src={time.imagem?.url} alt={time.nome} />
                     ) : (
-                        <Shield className="h-full w-36" />
+                        <Shield className="size-36 shrink-0" />
                     )}
                     <Divider vertical />
-                    <div className="h-full flex flex-col font-londrina">
+                    <div className="h-full flex flex-col">
                         <div className="flex-1">
                             <Paragraph className="line-clamp-1">{time.nome}</Paragraph>
                             <p className="font-light text-lg">Jogadores: <span className="font-kalam font-bold">{time._count.jogadores}</span></p>
-                            <Link href={`/meusrachas/${rachao.id}/elencos/${time.id}`} className="text-xl font-light flex items-center gap-2"><Plus size={28} className="text-primary"/> add jogadores</Link>
+                            <Link href={`/meusrachas/${rachao.id}/elencos/${time.id}`} className="text-xl font-light flex items-center gap-2"><Plus size={28} className="text-primary"/> Add jogadores</Link>
                         </div>
                     </div>
                 </div>

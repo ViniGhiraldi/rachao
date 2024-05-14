@@ -17,5 +17,5 @@ export const ConfirmarButton = ({jogadorId}: IConfirmarButton) => {
         }
     }
 
-    return <button className="text-primary text-xl font-light px-2 hover:underline" onClick={handleOnClick}>Confirmar</button>
+    return <button className="text-primary text-xl px-2 hover:underline" onClick={handleOnClick}>Confirmar</button>
 }
