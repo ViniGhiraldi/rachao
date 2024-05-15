@@ -28,19 +28,20 @@ export default async function Time({ params }: { params: { slug: string; timeId:
             {time.time.jogadores.length > 0 ? (
                 <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-5 gap-4">
                     {time.time.jogadores.map(jogador => (
-                        <div className="flex flex-col p-4 rounded-lg shadow border bg-white max-w-full" key={jogador.id}>
+                        <div className="flex flex-col p-4 rounded-lg border border-black shadow max-w-full" key={jogador.id}>
                             {jogador.imagem ? (
                                 <Avatar src={jogador.imagem?.url} alt={jogador.nome} className="self-center" />
                             ) : (
                                 <UserRound className="shrink-0 size-36 self-center" />
                             )}
-                            <div className="flex gap-3 items-center mt-4">
-                                <Status status={jogador.presenca} className=""/>
+                            <Divider className="mt-2"/>
+                            <div className="flex gap-3 items-center mt-2">
+                                <Status status={jogador.presenca}/>
                                 <DeleteButton jogadorId={jogador.id} />
                             </div>
-                                <div className="flex-1 flex gap-3 items-center">
-                                    <Paragraph className="line-clamp-1 text-2xl">{jogador.nome}</Paragraph>
-                                </div>
+                            <div className="flex-1 flex gap-3 items-center">
+                                <Paragraph className="line-clamp-1 text-2xl">{jogador.nome}</Paragraph>
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -49,9 +50,9 @@ export default async function Time({ params }: { params: { slug: string; timeId:
                 <>
                 <Divider/>
                 <Paragraph className="">Jogadores disponíveis</Paragraph>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 bg-white border shadow p-4 rounded-lg">
                     {time.jogadores.map((jogador) => (
-                        <div className="flex gap-2 items-start border shadow bg-white rounded-lg p-2 max-w-full overflow-hidden" key={jogador.id}>
+                        <div className="flex gap-2 items-start bg-background rounded-lg p-2 max-w-full overflow-hidden" key={jogador.id}>
                             {jogador.imagem ? (
                                 <Avatar src={jogador.imagem?.url} alt={jogador.nome} className="size-24" />
                             ) : (

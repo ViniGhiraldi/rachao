@@ -80,10 +80,10 @@ export default async function Rachao({ params }: {params: {slug: string}}){
             {!rachao.status && (
                 <div className="flex gap-4 text-xl font-light h-12">
                     <ReabrirListaButton rachaoId={rachao.id}/>
-                    <Button>
+                    <Button className="tracking-tight">
                         <Link href={`/meusrachas/${rachao.id}/elencos`} className="flex gap-2 items-center"><UsersRound size={28}/>Central de elencos</Link>
                     </Button>
-                    <Button>
+                    <Button className="tracking-tight">
                         <Link href={`/meusrachas/${rachao.id}/sorteio`} className="flex gap-2 items-center"><FerrisWheel size={28}/>Sorteio</Link>
                     </Button>
                     <Button variant="outlined" className="flex items-center gap-3">Fechar lista <CornerDownRight size={28}/></Button>

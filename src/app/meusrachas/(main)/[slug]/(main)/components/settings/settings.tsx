@@ -55,7 +55,7 @@ export const Settings = ({rachao}: ISettings) => {
         <div className="relative flex flex-col items-end">
             <Button variant="outlined" icon onClick={handleOnClickDropdown}><SettingsIcon size={28}/></Button>
             <Dropdown.root isOpen={dropdownIsOpen}>
-                <Dropdown.paragraph className="font-semibold">Configurações</Dropdown.paragraph>
+                <Dropdown.title>Configurações</Dropdown.title>
                 <Divider/>
                 <button onClick={handleOnClickEditar}><Dropdown.paragraph>Editar</Dropdown.paragraph></button>
                 <button onClick={handleOnClickDeletarRachao}><Dropdown.paragraph className="text-danger">Deletar Rachão</Dropdown.paragraph></button>

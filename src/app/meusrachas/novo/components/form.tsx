@@ -79,7 +79,7 @@ export const Form = () => {
                     <input type="password" disabled={isLoading} {...register('senha')} id="senha" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="A senha é requerida ao abrir o rachão" />
                     {errors.senha && <ComponentForm.errorParagraph>{errors.senha.message}</ComponentForm.errorParagraph>}
                 </ComponentForm.fieldContainer>
-                <Button disabled={isLoading} className="w-full sm:w-auto" type="submit">Criar</Button>
+                <Button disabled={isLoading} className="w-full sm:w-auto font-londrina" type="submit">Criar</Button>
             </ComponentForm.root>
             <Modal.root isOpen={isOpen} handleOnClose={handleCloseModal}>
                 <Modal.content>
