@@ -67,7 +67,7 @@ export const Form = ({ rachaoId }: IForm) => {
                 <Toggle htmlFor="presenca"/>
                 {errors.presenca && <ComponentForm.errorParagraph>{errors.presenca.message}</ComponentForm.errorParagraph>}
             </ComponentForm.fieldContainer>
-            <Button className="w-full sm:w-fit font-londrina" disabled={isLoading} type="submit">Entrar na lista</Button>
+            <Button className="w-full sm:w-fit" disabled={isLoading} type="submit">Entrar na lista</Button>
         </ComponentForm.root>
     )
 }

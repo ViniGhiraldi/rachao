@@ -1,9 +1,7 @@
-import { Button } from "@/components/button";
 import { Divider } from "@/components/divider";
 import { RachaoLayout } from "@/components/rachao-layout";
 import { getAllDespesas } from "@/services/api/despesas/get-all-despesas";
 import { getRachao } from "@/services/api/rachas/get-rachao";
-import { Pen, Plus, X } from "lucide-react";
 import { DeleteButton } from "./components/delete-button";
 import { EditButton } from "./components/edit-button/edit-button";
 import { AdicionarDespesaButton } from "./components/adicionar-despesa-button";

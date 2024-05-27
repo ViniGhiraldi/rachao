@@ -9,8 +9,8 @@ interface ICompartilharListaButton{
 
 export const CompartilharListaButton = ({ rachaoId }: ICompartilharListaButton) => {
     return (
-        <Button className="text-base sm:text-xl tracking-tight">
-            <Link target="_blank" href={`https://api.whatsapp.com/send/?text=${environment.baseURL}/${rachaoId}/listadepresenca&type=custom_url&app_absent=0`} className="flex items-center gap-3">
+        <Button className="text-base sm:text-xl">
+            <Link target="_blank" href={`https://api.whatsapp.com/send/?text=${environment.baseURL}/${rachaoId}/listadepresenca&type=custom_url&app_absent=0`} className="flex items-center gap-2">
                 <ExternalLink /> Compartilhar lista de presença
             </Link>
         </Button>

@@ -24,5 +24,5 @@ export const FecharListaButton = ({rachaoId}: IFecharListaButton) => {
         setIsLoading(false);
     }
 
-    return <Button onClick={handleOnClick} variant="outlined" disabled={isLoading} className="flex items-center gap-3 font-museo tracking-tight">Fechar lista <CornerDownRight size={28}/></Button>
+    return <Button onClick={handleOnClick} variant="outlined" disabled={isLoading} className="flex items-center gap-2">Fechar lista <CornerDownRight size={28}/></Button>
 }

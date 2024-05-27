@@ -1,7 +1,7 @@
 import { Divider } from "@/components/divider";
 import { Paragraph } from "@/components/paragraph";
 import { RachaoLayout } from "@/components/rachao-layout";
-import { Plus, UserRound } from "lucide-react";
+import { UserRound } from "lucide-react";
 import { getTime } from "@/services/api/times/get-time";
 import { Status } from "@/components/status";
 import { AddButton } from "./components/add-button";
@@ -28,19 +28,20 @@ export default async function Time({ params }: { params: { slug: string; timeId:
             {time.time.jogadores.length > 0 ? (
                 <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-5 gap-4">
                     {time.time.jogadores.map(jogador => (
-                        <div className="flex flex-col p-4 rounded-lg border border-black shadow max-w-full" key={jogador.id}>
-                            {jogador.imagem ? (
-                                <Avatar src={jogador.imagem?.url} alt={jogador.nome} className="self-center" />
-                            ) : (
-                                <UserRound className="shrink-0 size-36 self-center" />
-                            )}
-                            <Divider className="mt-2"/>
-                            <div className="flex gap-3 items-center mt-2">
-                                <Status status={jogador.presenca}/>
-                                <DeleteButton jogadorId={jogador.id} />
+                        <div className="flex flex-col rounded-lg max-w-full" key={jogador.id}>
+                            <div className="bg-white border rounded-lg shadow p-4 relative">
+                                {jogador.imagem ? (
+                                    <Avatar src={jogador.imagem?.url} alt={jogador.nome} className="m-auto" />
+                                ) : (
+                                    <UserRound className="shrink-0 size-36 m-auto" />
+                                )}
+                                <div className="flex items-center gap-2 mt-2">
+                                    <Status status={jogador.presenca}/> 
+                                    <Paragraph className="line-clamp-1 text-2xl">{jogador.nome}</Paragraph>
+                                </div>
                             </div>
-                            <div className="flex-1 flex gap-3 items-center">
-                                <Paragraph className="line-clamp-1 text-2xl">{jogador.nome}</Paragraph>
+                            <div className="mt-2 m-auto">
+                                <DeleteButton jogadorId={jogador.id} />
                             </div>
                         </div>
                     ))}
@@ -52,7 +53,7 @@ export default async function Time({ params }: { params: { slug: string; timeId:
                 <Paragraph className="">Jogadores disponíveis</Paragraph>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 bg-white border shadow p-4 rounded-lg">
                     {time.jogadores.map((jogador) => (
-                        <div className="flex gap-2 items-start bg-background rounded-lg p-2 max-w-full overflow-hidden" key={jogador.id}>
+                        <div className="flex gap-2 items-start bg-background border border-primary rounded-lg p-2 max-w-full overflow-hidden" key={jogador.id}>
                             {jogador.imagem ? (
                                 <Avatar src={jogador.imagem?.url} alt={jogador.nome} className="size-24" />
                             ) : (

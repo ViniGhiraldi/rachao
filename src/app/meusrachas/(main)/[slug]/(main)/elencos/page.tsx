@@ -2,7 +2,7 @@ import { Divider } from "@/components/divider";
 import { Paragraph } from "@/components/paragraph";
 import { RachaoLayout } from "@/components/rachao-layout";
 import { getAllTimes } from "@/services/api/times/get-all-times";
-import { Plus, Shield, UserRoundPlus } from "lucide-react";
+import { Shield, UserRoundPlus } from "lucide-react";
 import { getRachao } from "@/services/api/rachas/get-rachao";
 import Link from "next/link";
 import { Avatar } from "@/components/avatar";

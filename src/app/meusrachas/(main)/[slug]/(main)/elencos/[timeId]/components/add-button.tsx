@@ -2,9 +2,8 @@
 
 import { Button } from "@/components/button";
 import { putJogador } from "@/services/api/jogadores/put-jogador"
-import { Plus, UserRoundPlus } from "lucide-react"
+import { UserRoundPlus } from "lucide-react"
 import { toast } from "sonner";
-import { twMerge } from "tailwind-merge";
 
 interface IAddButton extends React.ComponentProps<'button'>{
     jogadorId: string;

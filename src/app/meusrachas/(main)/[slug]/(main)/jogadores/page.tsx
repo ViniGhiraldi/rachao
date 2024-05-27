@@ -2,7 +2,7 @@ import { Divider } from "@/components/divider";
 import { Paragraph } from "@/components/paragraph";
 import { RachaoLayout } from "@/components/rachao-layout";
 import { getAllJogadores } from "@/services/api/jogadores/get-all-jogadores";
-import { Plus, UserRound } from "lucide-react";
+import { UserRound } from "lucide-react";
 import { DeleteButton } from "./components/delete-button";
 import { EditButton } from "./components/edit-button/edit-button";
 import { Status } from "@/components/status";

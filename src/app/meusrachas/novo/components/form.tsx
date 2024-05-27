@@ -8,9 +8,7 @@ import { toast } from 'sonner';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from 'zod'
 import { createRachao } from "@/services/api/rachas/create-rachao"
-import { Modal } from "@/components/modal"
 import { useState } from "react"
-import { Divider } from "@/components/divider"
 import { useRouter } from "next/navigation"
 
 const schema = z.object({
@@ -30,25 +28,17 @@ export const Form = () => {
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
-    const [rachaoId, setRachaoId] = useState<string>();
 
     const handleCreateRachao = async (data: Schema) => {
         setIsLoading(true);
         const result = await createRachao(data);
         if(typeof result === 'object'){
-            setIsOpen(true);
-            setRachaoId(result.id);
-            toast.success(`${result.nome} criado com sucesso!`);
+            toast.info(`Não delete os cookies, senão seus rachas não serão exibidos!`);
+            router.replace(`/meusrachas/${result.id}`);
         }else{
             toast.error(result);
         }
         setIsLoading(false);
-    }
-
-    const handleCloseModal = () => {
-        setIsOpen(false);
-        router.replace(`/meusrachas/${rachaoId}`);
     }
 
     return (
@@ -79,16 +69,8 @@ export const Form = () => {
                     <input type="password" disabled={isLoading} {...register('senha')} id="senha" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="A senha é requerida ao abrir o rachão" />
                     {errors.senha && <ComponentForm.errorParagraph>{errors.senha.message}</ComponentForm.errorParagraph>}
                 </ComponentForm.fieldContainer>
-                <Button disabled={isLoading} className="w-full sm:w-auto font-londrina" type="submit">Criar</Button>
+                <Button disabled={isLoading} className="w-full sm:w-auto" type="submit">Criar</Button>
             </ComponentForm.root>
-            <Modal.root isOpen={isOpen} handleOnClose={handleCloseModal}>
-                <Modal.content>
-                    <Modal.attention/>
-                    <Divider/>
-                    <Modal.paragraph>Os seus rachas são exibidos graças aos cookies, se eles forem apagados você perderá todos eles!</Modal.paragraph>
-                    <Button className="self-start" onClick={handleCloseModal}>Entendido!</Button>
-                </Modal.content>
-            </Modal.root>
         </>
     )
 }
