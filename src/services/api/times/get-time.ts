@@ -2,14 +2,21 @@ import { environment } from "@/environment/environment";
 import { IJogador } from "@/models/jogador";
 import { ITime } from "@/models/time";
 
-interface IJogadorResponse extends Pick<IJogador, 'id' | 'nome' | 'imagem' | 'presenca'>{
+interface IJogadorSemTime extends Pick<IJogador, 'id' | 'nome' | 'imagem' | 'presenca'>{}
+
+interface IJogadorComTime extends IJogadorSemTime{
     time?: {
         nome: string;
     }
 }
 
+interface IJogadorResponse{
+    semTime: IJogadorSemTime[];
+    comTime: IJogadorComTime[];
+}
+
 interface ITimeResponse extends Pick<ITime, 'id' | 'createdAt' | 'imagem' | 'nome'>{
-    jogadores: Omit<IJogadorResponse, 'time'>[];
+    jogadores: IJogadorSemTime[];
     _count: {
         jogadores: number;
     }
@@ -17,7 +24,7 @@ interface ITimeResponse extends Pick<ITime, 'id' | 'createdAt' | 'imagem' | 'nom
 
 interface IResponse{
     time: ITimeResponse;
-    jogadores: IJogadorResponse[];
+    jogadores: IJogadorResponse;
 } 
 
 export const getTime = async (rachaoId: string, timeId: string) => {

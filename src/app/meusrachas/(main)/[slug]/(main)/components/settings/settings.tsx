@@ -11,18 +11,19 @@ import { Button } from "@/components/button";
 import { useRouter } from "next/navigation";
 import { EditForm } from "./edit-form";
 import { IRachao } from "@/models/rachao";
+import { useLoadingContext } from "@/contexts/loading-context";
 
 interface ISettings{
     rachao: Pick<IRachao, 'id' | 'nome' | 'modalidade' | 'regras' | 'local' | 'diahora' | 'status'>;
 }
 
 export const Settings = ({rachao}: ISettings) => {
+    const router = useRouter();
+    const { handleChangeIsLoading } = useLoadingContext();
+
     const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
     const [modalDeleteRachaoIsOpen, setModalDeleteRachaoIsOpen] = useState(false);
     const [modalEditRachaoIsOpen, setModalEditRachaoIsOpen] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-
-    const router = useRouter();
 
     const handleOnClickDropdown = () => {
         setDropdownIsOpen(current => !current);
@@ -39,7 +40,7 @@ export const Settings = ({rachao}: ISettings) => {
     }
 
     const handleOnDelete = async () => {
-        setIsLoading(true);
+        handleChangeIsLoading(true);
         const result = await deleteRachao(rachao.id);
         setModalDeleteRachaoIsOpen(false);
         if(!result){
@@ -48,7 +49,7 @@ export const Settings = ({rachao}: ISettings) => {
         }else{
             toast.error(result);
         }
-        setIsLoading(false);
+        handleChangeIsLoading(false);
     }
 
     return(
@@ -73,7 +74,7 @@ export const Settings = ({rachao}: ISettings) => {
                     <Divider/>
                     <Modal.paragraph>Você deseja realmente deletar este rachão? Esta ação não poderá ser revertida.</Modal.paragraph>
                     <div className="self-start flex gap-3">
-                        <Button variant="danger" disabled={isLoading} onClick={handleOnDelete}>Deletar</Button>
+                        <Button variant="danger" onClick={handleOnDelete}>Deletar</Button>
                         <Button variant="outlined" onClick={() => setModalDeleteRachaoIsOpen(false)}>Cancelar</Button>
                     </div>
                 </Modal.content>

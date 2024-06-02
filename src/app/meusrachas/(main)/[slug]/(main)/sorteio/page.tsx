@@ -2,17 +2,15 @@ import { Divider } from "@/components/divider";
 import { RachaoLayout } from "@/components/rachao-layout";
 import { getAllTimes } from "@/services/api/times/get-all-times";
 import { getAllJogadores } from "@/services/api/jogadores/get-all-jogadores";
-import { Paragraph } from "@/components/paragraph";
-import { Avatar } from "@/components/avatar";
-import { Shield, UserRound } from "lucide-react";
-import { Status } from "@/components/status";
-import { Toggle } from "@/components/toggle";
-import { Button } from "@/components/button";
 import { Sorteio } from "./components/sorteio";
+import { getRachao } from "@/services/api/rachas/get-rachao";
 
 export default async function Elencos({ params }: { params: { slug: string } }) {
+    const rachao = await getRachao(params.slug);
     const times = await getAllTimes(params.slug);
     const jogadores = await getAllJogadores(params.slug);
+
+    if(typeof rachao === 'string' || !rachao) return <RachaoLayout.message>{rachao || "Rachão não encontrado ou existente!"}</RachaoLayout.message>
 
     return (
         <RachaoLayout.container>
@@ -26,7 +24,7 @@ export default async function Elencos({ params }: { params: { slug: string } }) 
 
             <Divider />
             
-            {(typeof times !== 'string' && times.length > 0 && typeof jogadores !== 'string' && jogadores.length > 0) ? <Sorteio jogadores={jogadores} times={times}/> : <RachaoLayout.message>Não há jogadores e/ou times até o momento.</RachaoLayout.message>}
+            {(typeof times !== 'string' && times.length > 0 && typeof jogadores !== 'string' && jogadores.length > 0) ? <Sorteio rachaoId={rachao.id} jogadores={jogadores} times={times}/> : <RachaoLayout.message>Não há jogadores e/ou times até o momento.</RachaoLayout.message>}
         </RachaoLayout.container>
     )
 }

@@ -4,6 +4,7 @@ import { Button } from "@/components/button";
 import { Form } from "@/components/form";
 import { Label } from "@/components/label";
 import { Toggle } from "@/components/toggle";
+import { useLoadingContext } from "@/contexts/loading-context";
 import { IJogador } from "@/models/jogador";
 import { putJogador } from "@/services/api/jogadores/put-jogador";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -40,12 +41,12 @@ export const EditForm = ({jogador, closeForm}: IEditForm) => {
             nota: jogador.nota
         }
     });
-
-    const [isLoading, setIsLoading] = useState(false);
+    const { isLoading, handleChangeIsLoading } = useLoadingContext();
+    
     const [imagem, setImagem] = useState<File | null | undefined | string>(jogador.imagem?.url);
 
     const handleEditJogador = async (data: Schema) => {
-        setIsLoading(true);
+        handleChangeIsLoading(true);
         const result = await putJogador(jogador.id, data)
         closeForm();
         if(result === 'As alterações foram salvas!'){
@@ -53,7 +54,7 @@ export const EditForm = ({jogador, closeForm}: IEditForm) => {
         }else{
             toast.error(result);
         }
-        setIsLoading(false);
+        handleChangeIsLoading(false);
     }
 
     const handleDeleteImage = async () => {
@@ -61,7 +62,7 @@ export const EditForm = ({jogador, closeForm}: IEditForm) => {
             toast.info('O jogador não possui imagem.');
             return;
         }
-        setIsLoading(true);
+        handleChangeIsLoading(true);
         const result = await putJogador(jogador.id, {}, {deleteImagem: true});
         closeForm();
         if(result === 'As alterações foram salvas!'){
@@ -70,7 +71,7 @@ export const EditForm = ({jogador, closeForm}: IEditForm) => {
         }else{
             toast.error(result);
         }
-        setIsLoading(false);
+        handleChangeIsLoading(false);
     }
 
     return (

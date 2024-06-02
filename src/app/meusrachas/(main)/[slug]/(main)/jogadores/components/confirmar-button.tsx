@@ -1,5 +1,6 @@
 'use client'
 
+import { useLoadingContext } from "@/contexts/loading-context";
 import { putJogador } from "@/services/api/jogadores/put-jogador"
 import { toast } from "sonner"
 
@@ -8,6 +9,8 @@ interface IConfirmarButton{
 }
 
 export const ConfirmarButton = ({jogadorId}: IConfirmarButton) => {
+    const { isLoading } = useLoadingContext();
+
     const handleOnClick = async () => {
         const result = await putJogador(jogadorId, {presenca: true});
         if(result === 'As alterações foram salvas!'){
@@ -17,5 +20,5 @@ export const ConfirmarButton = ({jogadorId}: IConfirmarButton) => {
         }
     }
 
-    return <button className="text-primary text-xl px-2 hover:underline" onClick={handleOnClick}>Confirmar</button>
+    return <button disabled={isLoading} className="text-primary text-xl px-2 hover:underline disabled:opacity-50" onClick={handleOnClick}>Confirmar</button>
 }

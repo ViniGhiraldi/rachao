@@ -3,6 +3,7 @@
 import { Button } from "@/components/button";
 import { Form } from "@/components/form";
 import { Label } from "@/components/label";
+import { useLoadingContext } from "@/contexts/loading-context";
 import { IDespesa } from "@/models/despesa";
 import { putDespesa } from "@/services/api/despesas/put-despesa";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -33,11 +34,10 @@ export const EditForm = ({despesa, closeForm}: IEditForm) => {
             quantidade: despesa.quantidade
         }
     });
-
-    const [isLoading, setIsLoading] = useState(false);
+    const { isLoading, handleChangeIsLoading } = useLoadingContext();
 
     const handleEditDespesa = async (data: Schema) => {
-        setIsLoading(true);
+        handleChangeIsLoading(true);
         const result = await putDespesa(despesa.id, data);
         closeForm();
         if(result === 'As alterações foram salvas!'){
@@ -45,7 +45,7 @@ export const EditForm = ({despesa, closeForm}: IEditForm) => {
         }else{
             toast.error(result);
         }
-        setIsLoading(false);
+        handleChangeIsLoading(false);
     }
 
     return (
@@ -69,7 +69,7 @@ export const EditForm = ({despesa, closeForm}: IEditForm) => {
                 {errors.custoUnitario && <Form.errorParagraph>{errors.custoUnitario.message}</Form.errorParagraph>}
             </Form.fieldContainer>
             <Form.buttonsContainer>
-                <Button disabled={isLoading} type="submit">Salvar</Button>
+                <Button type="submit">Salvar</Button>
                 <Button variant="outlined" onClick={closeForm} type="button">Cancelar</Button>
             </Form.buttonsContainer>
         </Form.root>

@@ -13,6 +13,8 @@ import { AdicionarDespesaButton } from "./components/adicionar-despesa-button";
 import { AdicionarTimeButton } from "./components/adicionar-time-button";
 import { Button } from "@/components/button";
 import Link from "next/link";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 export default async function Rachao({ params }: {params: {slug: string}}){
     const rachao = await getRachao(params.slug);
@@ -26,10 +28,7 @@ export default async function Rachao({ params }: {params: {slug: string}}){
                     <RachaoLayout.titleContainer>
                         <RachaoLayout.navigateBack/>
                         <RachaoLayout.title>{rachao.nome}</RachaoLayout.title>
-                        <div className="sm:flex sm:items-center sm:gap-3 self-end whitespace-nowrap">
-                            <Status status={rachao.status}/>
-                            <span className="hidden sm:inline sm:font-museo">{rachao.status ? 'Em aberto' : 'Fechado'}</span>
-                        </div>
+                        <span className="hidden sm:inline self-end font-light text-lg font-museo">{rachao.local} - {format(rachao.diahora, "dd/MM/yyyy - HH:mm", {locale: ptBR})}</span>
                     </RachaoLayout.titleContainer>
                     <RachaoLayout.subtitle>{rachao.regras ? rachao.regras : 'As regras do rachão aparecerão aqui...'}</RachaoLayout.subtitle>
                 </div>
@@ -49,7 +48,7 @@ export default async function Rachao({ params }: {params: {slug: string}}){
             <Divider/>
 
             <RachaoLayout.grid>
-                <Card.linkRoot href={`/meusrachas/${rachao.id}/jogadores`} className="flex justify-between items-center">
+                <Card.linkRoot href={`/meusrachas/${rachao.id}/jogadores`}>
                     <UserRound size={48} className="text-white"/>
                     <div className="text-right">
                         <Card.paragraph>Lista de jogadores</Card.paragraph>
@@ -57,7 +56,7 @@ export default async function Rachao({ params }: {params: {slug: string}}){
                     </div>
                 </Card.linkRoot>
                 {!rachao.status && (
-                    <Card.linkRoot href={`/meusrachas/${rachao.id}/times`} className="flex justify-between items-center">
+                    <Card.linkRoot href={`/meusrachas/${rachao.id}/times`}>
                         <Shield size={48} className="text-white"/>
                         <div className="text-right">
                             <Card.paragraph>Lista de times</Card.paragraph>
@@ -65,7 +64,7 @@ export default async function Rachao({ params }: {params: {slug: string}}){
                         </div>
                     </Card.linkRoot>
                 )}
-                <Card.linkRoot href={`/meusrachas/${rachao.id}/despesas`} className="flex justify-between items-center">
+                <Card.linkRoot href={`/meusrachas/${rachao.id}/despesas`}>
                     <CircleDollarSign size={48} className="text-white"/>
                     <div className="text-right">
                         <Card.paragraph>Lista de despesas</Card.paragraph>
@@ -86,7 +85,9 @@ export default async function Rachao({ params }: {params: {slug: string}}){
                     <Button>
                         <Link href={`/meusrachas/${rachao.id}/sorteio`} className="flex gap-2 items-center"><FerrisWheel size={28}/>Sorteio</Link>
                     </Button>
-                    <Button variant="outlined" className="flex items-center gap-2">Fechar lista <CornerDownRight size={28}/></Button>
+                    <Button variant="outlined">
+                        <Link href={`/meusrachas/${rachao.id}/resultados`} className="flex items-center gap-2">Ir para resultados <CornerDownRight size={28}/></Link>
+                    </Button>
                 </div>
             )}
         </RachaoLayout.container>

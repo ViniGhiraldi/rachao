@@ -47,18 +47,43 @@ export default async function Time({ params }: { params: { slug: string; timeId:
                     ))}
                 </div>
             ) : <RachaoLayout.message>Ainda não há nenhum jogador neste time.</RachaoLayout.message>}
-            {time.jogadores.length > 0 && (
+            {(time.jogadores.semTime.length > 0 || time.jogadores.comTime.length > 0) && <Divider/>}
+            {time.jogadores.semTime.length > 0 && (
                 <>
-                <Divider/>
-                <Paragraph className="">Jogadores disponíveis</Paragraph>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 bg-white border shadow p-4 rounded-lg">
-                    {time.jogadores.map((jogador) => (
-                        <div className="flex gap-2 items-start bg-background border border-primary rounded-lg p-2 max-w-full overflow-hidden" key={jogador.id}>
+                <Paragraph className="">Jogadores sem time</Paragraph>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    {time.jogadores.semTime.map((jogador) => (
+                        <div className="flex gap-2 items-start max-w-full overflow-hidden" key={jogador.id}>
                             {jogador.imagem ? (
                                 <Avatar src={jogador.imagem?.url} alt={jogador.nome} className="size-24" />
                             ) : (
                                 <UserRound className="size-24 shrink-0" />
                             )}
+                            <Divider vertical/>
+                            <div className="">
+                                <div className="flex gap-2 items-center">
+                                    <Status status={jogador.presenca}/>
+                                    <Paragraph className="line-clamp-1 text-2xl">{jogador.nome}</Paragraph>
+                                </div>
+                                <AddButton jogadorId={jogador.id} timeId={time.time.id}/>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                </>
+            )}
+            {time.jogadores.comTime.length > 0 && (
+                <>
+                <Paragraph className="">Outros jogadores</Paragraph>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    {time.jogadores.comTime.map((jogador) => (
+                        <div className="flex gap-2 items-start max-w-full overflow-hidden" key={jogador.id}>
+                            {jogador.imagem ? (
+                                <Avatar src={jogador.imagem?.url} alt={jogador.nome} className="size-24" />
+                            ) : (
+                                <UserRound className="size-24 shrink-0" />
+                            )}
+                            <Divider vertical/>
                             <div className="">
                                 <div className="flex gap-2 items-center">
                                     <Status status={jogador.presenca}/>

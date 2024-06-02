@@ -6,10 +6,13 @@ import { Divider } from "@/components/divider"
 import { Paragraph } from "@/components/paragraph"
 import { Status } from "@/components/status"
 import { Toggle } from "@/components/toggle"
+import { useLoadingContext } from "@/contexts/loading-context"
 import { IJogador } from "@/models/jogador"
 import { ITime } from "@/models/time"
+import { sorteio } from "@/services/api/others/sorteio"
 import { Shield, UserRound } from "lucide-react"
-import { useCallback, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
+import { toast } from "sonner"
 
 interface IResponseTime extends Pick<ITime, 'id' | 'createdAt' | 'imagem' | 'nome'> {
     _count: {
@@ -18,42 +21,62 @@ interface IResponseTime extends Pick<ITime, 'id' | 'createdAt' | 'imagem' | 'nom
     }
 }
 
-interface ISorteio {
-    times: IResponseTime[];
-    jogadores: IJogador[];
+interface IResponseTimeForJogador extends Pick<ITime, 'id' | 'nome'>{}
+
+interface IResponseJogador extends Omit<IJogador, 'time'> {
+    time?: IResponseTimeForJogador
 }
 
-export const Sorteio = ({ jogadores, times }: ISorteio) => {
+interface ISorteio {
+    rachaoId: string;
+    times: IResponseTime[];
+    jogadores: IResponseJogador[];
+}
+
+export const Sorteio = ({ rachaoId, jogadores, times }: ISorteio) => {
+    const { isLoading, handleChangeIsLoading } = useLoadingContext();
+
     const [apenasJogadoresSemTime, setApenasJogadoresSemTime] = useState(false);
     const [apenasJogadoresConfirmados, setApenasJogadoresConfirmados] = useState(false);
-    const [jogadoresFiltered, setJogadoresFiltered] = useState<IJogador[]>(jogadores);
+    const [jogadoresFiltered, setJogadoresFiltered] = useState<IResponseJogador[]>(jogadores);
 
     useEffect(() => {
         if(apenasJogadoresSemTime && apenasJogadoresConfirmados){
-            setJogadoresFiltered(oldValue => oldValue.filter(jogador => !jogador.time && jogador.presenca));
+            setJogadoresFiltered(jogadores.filter(jogador => !jogador.time && jogador.presenca));
         }else if(apenasJogadoresSemTime){
-            setJogadoresFiltered(oldValue => oldValue.filter(jogador => !jogador.time));
+            setJogadoresFiltered(jogadores.filter(jogador => !jogador.time));
         }else if(apenasJogadoresConfirmados){
-            setJogadoresFiltered(oldValue => oldValue.filter(jogador => jogador.presenca));
+            setJogadoresFiltered(jogadores.filter(jogador => jogador.presenca));
         }else{
             setJogadoresFiltered(jogadores);
         }
-    }, [apenasJogadoresSemTime, apenasJogadoresConfirmados])
+    }, [apenasJogadoresSemTime, apenasJogadoresConfirmados, jogadores])
+
+    const handleSorteio = async () => {
+        handleChangeIsLoading(true);
+        const result = await sorteio(rachaoId, apenasJogadoresSemTime, apenasJogadoresConfirmados);
+        if(!result){
+            toast.success('Sorteio realizado com sucesso!');
+        }else{
+            toast.error(result);
+        }
+        handleChangeIsLoading(false);
+    }
 
     return (
         <>
             <div className="flex gap-4 items-center">
                 <div className="flex flex-col gap-1">
                     <p>Apenas jogadores sem time</p>
-                    <input type="checkbox" id="apenasJogadoresSemTime" className="peer sr-only" onChange={e => setApenasJogadoresSemTime(e.currentTarget.checked)} />
+                    <input type="checkbox" id="apenasJogadoresSemTime" disabled={isLoading} className="peer sr-only" onChange={e => setApenasJogadoresSemTime(e.currentTarget.checked)} />
                     <Toggle htmlFor="apenasJogadoresSemTime" />
                 </div>
                 <div className="flex flex-col gap-1">
                     <p>Apenas jogadores confirmados</p>
-                    <input type="checkbox" id="apenasJogadoresConfirmados" className="peer sr-only" onChange={e => setApenasJogadoresConfirmados(e.currentTarget.checked)} />
+                    <input type="checkbox" id="apenasJogadoresConfirmados" disabled={isLoading} className="peer sr-only" onChange={e => setApenasJogadoresConfirmados(e.currentTarget.checked)} />
                     <Toggle htmlFor="apenasJogadoresConfirmados" />
                 </div>
-                <Button>Sortear</Button>
+                <Button onClick={handleSorteio}>Sortear</Button>
             </div>
             <Paragraph>Total de times: <span className="font-museo text-primary">{times.length}</span></Paragraph>
             <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-5 gap-4">

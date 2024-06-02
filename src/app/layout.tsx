@@ -3,6 +3,7 @@ import "./globals.css";
 import { Toaster } from 'sonner';
 import { Header } from "@/components/header/header";
 import { kalam, londrinaSolid, museoModerno } from "./fonts";
+import { LoadingProvider } from "@/contexts/loading-context";
 
 export const metadata: Metadata = {
   title: "Rachão",
@@ -16,11 +17,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" className={`${museoModerno.variable} ${londrinaSolid.variable} ${kalam.variable}`}>
-      <body className="font-museo text-black dark:text-white bg-background dark:bg-background-foreground">
-        <Header/>
-        {children}
-        <Toaster richColors closeButton/>
-      </body>
+      <LoadingProvider>
+        <body className="font-museo text-black dark:text-white bg-background dark:bg-background-foreground">
+          <Header/>
+          {children}
+          <Toaster richColors closeButton/>
+        </body>
+      </LoadingProvider>
     </html>
   );
 }

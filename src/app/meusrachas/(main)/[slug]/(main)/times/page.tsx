@@ -32,7 +32,7 @@ export default async function Times({ params }: { params: { slug: string } }) {
             ) : times.map(time => (
                 <div className="flex gap-4 items-start h-36 w-fit" key={time.id}>
                     {time.imagem ? (
-                        <Avatar src={time.imagem?.url} alt={time.nome}/>
+                        <Avatar src={time.imagem.url} alt={time.nome}/>
                     ) : (
                         <Shield className="shrink-0 size-36" />
                     )}

@@ -3,6 +3,7 @@
 import { Button } from "@/components/button";
 import { Form as ComponentForm } from "@/components/form";
 import { Label } from "@/components/label";
+import { useLoadingContext } from "@/contexts/loading-context";
 import { createTime } from "@/services/api/times/create-time";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
@@ -27,15 +28,15 @@ interface IForm{
 }
 
 export const AdicionarTimeForm = ({rachaoId, closeForm}: IForm) => {
-    const [imagem, setImagem] = useState<File | null>();
-    const [isLoading, setIsLoading] = useState(false);
-
     const { register, handleSubmit, reset, formState: { errors } } = useForm<Schema>({
         resolver: zodResolver(schema)
     });
+    const { isLoading, handleChangeIsLoading } = useLoadingContext();
+
+    const [imagem, setImagem] = useState<File | null>();
 
     const handleCreateJogador = async (data: Schema) => {
-        setIsLoading(true);
+        handleChangeIsLoading(true);
         const result = await createTime(rachaoId, data);
         if(typeof result === 'object'){
             toast.success(`${result.nome} adicionado com sucesso!`);
@@ -45,7 +46,7 @@ export const AdicionarTimeForm = ({rachaoId, closeForm}: IForm) => {
         }else{
             toast.error(result);
         }
-        setIsLoading(false);
+        handleChangeIsLoading(false);
     }
 
     return(

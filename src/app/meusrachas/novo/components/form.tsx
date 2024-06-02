@@ -10,6 +10,7 @@ import { z } from 'zod'
 import { createRachao } from "@/services/api/rachas/create-rachao"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { useLoadingContext } from "@/contexts/loading-context"
 
 const schema = z.object({
     nome: z.string().trim().min(1, 'Este campo é obrigatório.'),
@@ -26,11 +27,10 @@ export const Form = () => {
         resolver: zodResolver(schema),
     });
     const router = useRouter();
-
-    const [isLoading, setIsLoading] = useState(false);
+    const { isLoading, handleChangeIsLoading } = useLoadingContext();
 
     const handleCreateRachao = async (data: Schema) => {
-        setIsLoading(true);
+        handleChangeIsLoading(true);
         const result = await createRachao(data);
         if(typeof result === 'object'){
             toast.info(`Não delete os cookies, senão seus rachas não serão exibidos!`);
@@ -38,7 +38,7 @@ export const Form = () => {
         }else{
             toast.error(result);
         }
-        setIsLoading(false);
+        handleChangeIsLoading(false);
     }
 
     return (
@@ -69,7 +69,7 @@ export const Form = () => {
                     <input type="password" disabled={isLoading} {...register('senha')} id="senha" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" placeholder="A senha é requerida ao abrir o rachão" />
                     {errors.senha && <ComponentForm.errorParagraph>{errors.senha.message}</ComponentForm.errorParagraph>}
                 </ComponentForm.fieldContainer>
-                <Button disabled={isLoading} className="w-full sm:w-auto" type="submit">Criar</Button>
+                <Button className="w-full sm:w-auto" type="submit">Criar</Button>
             </ComponentForm.root>
         </>
     )

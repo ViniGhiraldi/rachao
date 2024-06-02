@@ -3,6 +3,7 @@
 import { Button } from "@/components/button";
 import { Form } from "@/components/form";
 import { Label } from "@/components/label";
+import { useLoadingContext } from "@/contexts/loading-context";
 import { ITime } from "@/models/time";
 import { putTime } from "@/services/api/times/put-time";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -35,12 +36,12 @@ export const EditForm = ({time, closeForm}: IEditForm) => {
             nome: time.nome,
         }
     });
-
-    const [isLoading, setIsLoading] = useState(false);
+    const { isLoading, handleChangeIsLoading } = useLoadingContext();
+    
     const [imagem, setImagem] = useState<File | null | undefined | string>(time.imagem?.url);
 
     const handleEditTime = async (data: Schema) => {
-        setIsLoading(true);
+        handleChangeIsLoading(true);
         const result = await putTime(time.id, data);
         closeForm();
         if(result === 'As alterações foram salvas!'){
@@ -48,7 +49,7 @@ export const EditForm = ({time, closeForm}: IEditForm) => {
         }else{
             toast.error(result);
         }
-        setIsLoading(false);
+        handleChangeIsLoading(false);
     }
 
     const handleDeleteImage = async () => {
@@ -56,7 +57,7 @@ export const EditForm = ({time, closeForm}: IEditForm) => {
             toast.info('O time não possui imagem.');
             return;
         }
-        setIsLoading(true);
+        handleChangeIsLoading(true);
         const result = await putTime(time.id, {}, {deleteImagem: true});
         closeForm();
         if(result === 'As alterações foram salvas!'){
@@ -65,7 +66,7 @@ export const EditForm = ({time, closeForm}: IEditForm) => {
         }else{
             toast.error(result);
         }
-        setIsLoading(false);
+        handleChangeIsLoading(false);
     }
 
     return (
@@ -87,7 +88,7 @@ export const EditForm = ({time, closeForm}: IEditForm) => {
             </Form.fieldContainer>
 
             <Form.buttonsContainer>
-                <Button disabled={isLoading} type="submit">Salvar</Button>
+                <Button type="submit">Salvar</Button>
                 <Button variant="outlined" onClick={closeForm} type="button">Cancelar</Button>
             </Form.buttonsContainer>
         </Form.root>

@@ -3,9 +3,9 @@
 import { Button } from "@/components/button";
 import { Form as ComponentForm } from "@/components/form";
 import { Label } from "@/components/label";
+import { useLoadingContext } from "@/contexts/loading-context";
 import { createDespesa } from "@/services/api/despesas/create-despesa";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -24,17 +24,17 @@ interface IForm{
 }
 
 export const AdicionarDespesaForm = ({rachaoId, closeForm}: IForm) => {
-    const [isLoading, setIsLoading] = useState(false);
-
+    
     const { register, handleSubmit, reset, formState: { errors } } = useForm<Schema>({
         resolver: zodResolver(schema),
         defaultValues: {
             quantidade: 1
         }
     });
+    const { isLoading, handleChangeIsLoading } = useLoadingContext();
 
     const handleCreateJogador = async (data: Schema) => {
-        setIsLoading(true);
+        handleChangeIsLoading(true);
         const result = await createDespesa(rachaoId, data);
         if(typeof result === 'object'){
             toast.success(`Despesa adicionada com sucesso!`);
@@ -43,7 +43,7 @@ export const AdicionarDespesaForm = ({rachaoId, closeForm}: IForm) => {
         }else{
             toast.error(result);
         }
-        setIsLoading(false);
+        handleChangeIsLoading(false);
     }
 
     return(

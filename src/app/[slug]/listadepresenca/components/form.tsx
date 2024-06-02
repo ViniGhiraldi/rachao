@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Toggle } from "@/components/toggle";
+import { useLoadingContext } from "@/contexts/loading-context";
 
 const schema = z.object({
     nome: z.string().trim().min(1, 'Este campo é obrigatório.'),
@@ -28,15 +29,15 @@ interface IForm{
 }
 
 export const Form = ({ rachaoId }: IForm) => {
-    const [imagem, setImagem] = useState<File | null>();
-    const [isLoading, setIsLoading] = useState(false);
-
     const { register, handleSubmit, reset, formState: { errors } } = useForm<Schema>({
         resolver: zodResolver(schema),
     });
+    const {isLoading, handleChangeIsLoading} = useLoadingContext();
+
+    const [imagem, setImagem] = useState<File | null>();
 
     const handleCreateJogador = async (data: Schema) => {
-        setIsLoading(true);
+        handleChangeIsLoading(true);
         const result = await createJogador(rachaoId, data);
         if(typeof result === 'object'){
             toast.success(`${result.nome} entrou pra lista!`);
@@ -44,7 +45,7 @@ export const Form = ({ rachaoId }: IForm) => {
         }else{
             toast.error(result);
         }
-        setIsLoading(false);
+        handleChangeIsLoading(false);
     }
 
     return (
@@ -67,7 +68,7 @@ export const Form = ({ rachaoId }: IForm) => {
                 <Toggle htmlFor="presenca"/>
                 {errors.presenca && <ComponentForm.errorParagraph>{errors.presenca.message}</ComponentForm.errorParagraph>}
             </ComponentForm.fieldContainer>
-            <Button className="w-full sm:w-fit" disabled={isLoading} type="submit">Entrar na lista</Button>
+            <Button className="w-full sm:w-fit" type="submit">Entrar na lista</Button>
         </ComponentForm.root>
     )
 }

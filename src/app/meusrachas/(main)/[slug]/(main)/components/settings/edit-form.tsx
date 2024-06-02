@@ -3,6 +3,7 @@
 import { Button } from "@/components/button";
 import { Form } from "@/components/form";
 import { Label } from "@/components/label";
+import { useLoadingContext } from "@/contexts/loading-context";
 import { IRachao } from "@/models/rachao";
 import { putRachao } from "@/services/api/rachas/put-rachao";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,11 +38,10 @@ export const EditForm = ({rachao, closeForm}: IEditForm) => {
             diahora: (rachao.diahora as unknown as string).split('.')[0] as unknown as Date
         }
     });
-
-    const [isLoading, setIsLoading] = useState(false);
+    const { isLoading, handleChangeIsLoading } = useLoadingContext();
 
     const handleEditRachao = async (data: Schema) => {
-        setIsLoading(true);
+        handleChangeIsLoading(true);
         const result = await putRachao(rachao.id, {...data, status: rachao.status})
         closeForm();
         if(result === 'As alterações foram salvas!'){
@@ -49,7 +49,7 @@ export const EditForm = ({rachao, closeForm}: IEditForm) => {
         }else{
             toast.error(result);
         }
-        setIsLoading(false);
+        handleChangeIsLoading(false);
     }
 
     return (
@@ -76,12 +76,12 @@ export const EditForm = ({rachao, closeForm}: IEditForm) => {
             </Form.fieldContainer>
             <Form.fieldContainer>
                 <Label htmlFor="diahora">Dia e Horário</Label>
-                <input type="datetime-local" disabled={isLoading} {...register('diahora')} id="diahora" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" />
+                <input type="datetime-local" disabled={isLoading} {...register('diahora', {valueAsDate: true})} id="diahora" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg" />
                 {errors.diahora && <Form.errorParagraph>{errors.diahora.message}</Form.errorParagraph>}
             </Form.fieldContainer>
 
             <Form.buttonsContainer>
-                <Button disabled={isLoading} type="submit">Salvar</Button>
+                <Button type="submit">Salvar</Button>
                 <Button variant="outlined" onClick={closeForm} type="button">Cancelar</Button>
             </Form.buttonsContainer>
         </Form.root>

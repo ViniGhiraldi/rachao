@@ -1,5 +1,12 @@
 import { environment } from "@/environment/environment";
 import { IJogador } from "@/models/jogador";
+import { ITime } from "@/models/time";
+
+interface IResponseTime extends Pick<ITime, 'id' | 'nome'>{}
+
+interface IResponse extends Omit<IJogador, 'time'>{
+    time?: IResponseTime
+}
 
 export const getAllJogadores = async (id: string, orderBy: 'presenca' | 'time' = 'presenca') => {
     try {
@@ -10,7 +17,7 @@ export const getAllJogadores = async (id: string, orderBy: 'presenca' | 'time' =
             }
         })
 
-        const { data } = await response.json() as {data: IJogador[]};
+        const { data } = await response.json() as {data: IResponse[]};
 
         if(response.status === 200 && data.length) return data;
 

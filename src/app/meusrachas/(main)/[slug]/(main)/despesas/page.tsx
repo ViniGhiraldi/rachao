@@ -37,13 +37,9 @@ export default async function Despesas({ params }: { params: { slug: string } })
                     <RachaoLayout.message>{despesas || "Não há despesas até o momento."}</RachaoLayout.message>
                 ) : despesas.map((despesa, i) => (
                     <div className="flex items-center h-10 gap-2 md:gap-4 text-lg w-full overflow-x-auto overflow-y-hidden" key={i}>
-                        <span className="text-base sm:text-xl md:text-2xl font-light whitespace-nowrap">{despesa.titulo}</span>
+                        <span className="text-base sm:text-xl md:text-2xl font-light whitespace-nowrap">{despesa.quantidade}x <span className="font-medium">{despesa.titulo}</span> de <span className="font-medium">{Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(despesa.custoUnitario)}</span>/un</span>
                         <Divider vertical/>
-                        <span className="text-sm md:text-xl ">{Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(despesa.custoUnitario)}</span>
-                        <Divider vertical/>
-                        <span className="text-sm md:text-xl">{despesa.quantidade}x</span>
-                        <Divider vertical/>
-                        <span className="text-sm md:text-xl ">{Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(despesa.custoTotal)}</span>
+                        <span className="text-base sm:text-xl md:text-2xl whitespace-nowrap text-danger font-medium">{Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(despesa.custoTotal)}</span>
                         <Divider vertical/>
                         <div className="flex gap-2 items-center">
                             <EditButton despesa={despesa} />

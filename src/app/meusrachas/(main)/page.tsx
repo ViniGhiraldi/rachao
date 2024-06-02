@@ -23,13 +23,13 @@ export default async function Meusrachas() {
             {typeof rachas === 'object' && (
                 <RachaoLayout.grid>
                     {rachas.map((rachao, i) => (
-                        <Card.linkRoot href={`/meusrachas/${rachao.id}`} className="relative group" key={i}>
-                            <Status status={rachao.status} className="data-[status=true]:animate-pulse absolute top-2 left-2"/>
-                            <Card.title>{rachao.nome}</Card.title>
+                        <Card.linkRoot href={`/meusrachas/${rachao.id}`} className="relative group flex-col items-start justify-normal" key={i}>
+                            <Card.title className="self-center">{rachao.nome}</Card.title>
                             <Card.content>
-                                <p className="text-primary overflow-hidden text-ellipsis whitespace-nowrap">Modalidade: <span className="font-kalam text-white whitespace-normal">{rachao.modalidade}</span></p>
+                                <p className="text-primary overflow-hidden text-ellipsis whitespace-nowrap">Status: <span className="text-white font-kalam">{rachao.status ? 'Aberto' : 'Fechado'}</span></p>
                                 <p className="text-primary overflow-hidden text-ellipsis whitespace-nowrap">Local: <span className="font-kalam text-white whitespace-normal">{rachao.local}</span></p>
                                 <p className="text-primary">Data: <span className="font-kalam text-white">{formatRelative(rachao.diahora, new Date(), { locale: ptBR })}</span></p>
+                                <p className="text-primary overflow-hidden text-ellipsis whitespace-nowrap">Modalidade: <span className="font-kalam text-white whitespace-normal">{rachao.modalidade}</span></p>
                                 <p className="text-primary">Jogadores: <span className="font-kalam text-white">{rachao._count.jogadores}</span></p>
                             </Card.content>
                         </Card.linkRoot>

@@ -4,6 +4,7 @@ import { Button } from "@/components/button";
 import { Form as ComponentForm } from "@/components/form";
 import { Label } from "@/components/label";
 import { Toggle } from "@/components/toggle";
+import { useLoadingContext } from "@/contexts/loading-context";
 import { createJogador } from "@/services/api/jogadores/create-jogador";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
@@ -29,15 +30,15 @@ interface IForm{
 }
 
 export const AdicionarJogadorForm = ({rachaoId, closeForm}: IForm) => {
-    const [imagem, setImagem] = useState<File | null>();
-    const [isLoading, setIsLoading] = useState(false);
-
     const { register, handleSubmit, reset, formState: { errors } } = useForm<Schema>({
         resolver: zodResolver(schema)
     });
+    const { isLoading, handleChangeIsLoading } = useLoadingContext();
+    
+    const [imagem, setImagem] = useState<File | null>();
 
     const handleCreateJogador = async (data: Schema) => {
-        setIsLoading(true);
+        handleChangeIsLoading(true);
         const result = await createJogador(rachaoId, data);
         if(typeof result === 'object'){
             toast.success(`${result.nome} entrou pra lista!`);
@@ -47,7 +48,7 @@ export const AdicionarJogadorForm = ({rachaoId, closeForm}: IForm) => {
         }else{
             toast.error(result);
         }
-        setIsLoading(false);
+        handleChangeIsLoading(false);
     }
 
     return(

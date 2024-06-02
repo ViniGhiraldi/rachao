@@ -5,7 +5,7 @@ export interface IResultado{
     timeCasa: ITime;
     timeVisitante: ITime;
     timeVencedor?: ITime;
-    resultado: string;
-    duracao: string;
+    timeVisitantePontos: number;
+    timeCasaPontos: number;
     createdAt: Date;
 }

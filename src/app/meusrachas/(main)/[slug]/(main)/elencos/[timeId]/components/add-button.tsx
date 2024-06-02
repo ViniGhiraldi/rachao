@@ -20,5 +20,5 @@ export const AddButton = ({jogadorId, timeId, ...rest}: IAddButton) => {
         }
     }
 
-    return <Button variant="outlined" icon onClick={handleAdd} {...rest}><UserRoundPlus size={24} className="text-primary"/></Button>
+    return <Button variant="outlined" icon onClick={handleAdd} {...rest}><UserRoundPlus size={24}/></Button>
 }
