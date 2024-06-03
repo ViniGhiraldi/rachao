@@ -39,6 +39,7 @@ export const createRachao = async (body: IBody) => {
 
         if(response.status === 201){
             revalidateTagOnServer('get-all-rachao');
+            revalidateTagOnServer('get-rachao');
             return {...data, sessionId: undefined};
         }
 

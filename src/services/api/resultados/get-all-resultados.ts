@@ -2,7 +2,7 @@ import { environment } from "@/environment/environment";
 import { IResultado } from "@/models/resultado";
 import { ITime } from "@/models/time";
 
-interface ITimeForResultado extends Pick<ITime, 'nome' | 'imagem'>{}
+interface ITimeForResultado extends Pick<ITime, 'id' | 'nome' | 'imagem'>{}
 
 interface IResponse extends Pick<IResultado, 'id' | 'timeCasaPontos' | 'timeVisitantePontos' | 'createdAt'>{
     timeCasa: ITimeForResultado;

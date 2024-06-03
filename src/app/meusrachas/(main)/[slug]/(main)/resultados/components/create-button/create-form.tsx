@@ -12,32 +12,23 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 const schema = z.object({
-    timeCasaId: z.string().cuid(),
-    timeVisitanteId: z.string().cuid(),
-    timeVencedorId: z.string().optional(),
-    timeVisitantePontos: z.number().int().nonnegative(),
-    timeCasaPontos: z.number().int().nonnegative()
+    timeCasaId: z.string().trim().cuid({message: 'Selecione um time.'}).min(1, 'Este campo é obrigatório.'),
+    timeVisitanteId: z.string().trim().cuid({message: 'Selecione um time.'}).min(1, 'Este campo é obrigatório.'),
+    timeVisitantePontos: z.number({invalid_type_error: 'Este campo é obrigatório.'}).int({message: 'Apenas números inteiros são aceitos.'}).nonnegative({message: 'A pontuação não pode ser negativa.'}),
+    timeCasaPontos: z.number({invalid_type_error: 'Este campo é obrigatório.'}).int({message: 'Apenas números inteiros são aceitos.'}).nonnegative({message: 'A pontuação não pode ser negativa.'})
 }).superRefine((values, ctx) => {
     if(values.timeCasaId === values.timeVisitanteId){
         ctx.addIssue({
             path: ['timeVisitanteId'],
             code: z.ZodIssueCode.custom,
-            message: 'O time visitante e o time da casa não podem ser o mesmo.'
+            message: 'Os times não podem ser o mesmo.'
         })
-    }else{
-        if(values.timeVencedorId === 'timeCasaId'){
-            values.timeVencedorId = values.timeCasaId;
-        }else if(values.timeVencedorId === 'timeVisitanteId'){
-            values.timeVencedorId = values.timeVisitanteId;
-        }else{
-            values.timeVencedorId = undefined;
-        }
     }
 })
 
 type Schema = z.infer<typeof schema>;
 
-interface ITimeForForm extends Pick<ITime, 'id' | 'nome' | 'imagem'>{}
+interface ITimeForForm extends Pick<ITime, 'id' | 'nome'>{}
 
 interface IForm{
     rachaoId: string;
@@ -47,7 +38,11 @@ interface IForm{
 
 export const CreateForm = ({rachaoId, closeForm, times}: IForm) => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm<Schema>({
-        resolver: zodResolver(schema)
+        resolver: zodResolver(schema),
+        defaultValues: {
+            timeCasaPontos: 0,
+            timeVisitantePontos: 0
+        }
     });
     const { isLoading, handleChangeIsLoading } = useLoadingContext();
 
@@ -77,6 +72,11 @@ export const CreateForm = ({rachaoId, closeForm, times}: IForm) => {
                 {errors.timeCasaId && <ComponentForm.errorParagraph>{errors.timeCasaId.message}</ComponentForm.errorParagraph>}
             </ComponentForm.fieldContainer>
             <ComponentForm.fieldContainer>
+                <Label htmlFor="timeCasaPontos">Pontuação</Label>
+                <input type="number" {...register('timeCasaPontos', {valueAsNumber: true})} disabled={isLoading} id="timeCasaPontos" className="bg-transparent w-12 outline-none font-museo font-thin text-base sm:text-2xl" placeholder="0" />
+                {errors.timeCasaPontos && <ComponentForm.errorParagraph>{errors.timeCasaPontos.message}</ComponentForm.errorParagraph>}
+            </ComponentForm.fieldContainer>
+            <ComponentForm.fieldContainer>
                 <Label htmlFor="timeVisitanteId">Time visitante</Label>
                 <select {...register('timeVisitanteId')} disabled={isLoading} id="timeVisitanteId" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg">
                     <option value="" disabled selected className="font-museo text-base">Selecione um time</option>
@@ -87,21 +87,7 @@ export const CreateForm = ({rachaoId, closeForm, times}: IForm) => {
                 {errors.timeVisitanteId && <ComponentForm.errorParagraph>{errors.timeVisitanteId.message}</ComponentForm.errorParagraph>}
             </ComponentForm.fieldContainer>
             <ComponentForm.fieldContainer>
-                <Label htmlFor="timeVencedorId">Time vencedor</Label>
-                <select {...register('timeVencedorId')} disabled={isLoading} id="timeVencedorId" className="border-2 border-muted font-londrina font-thin w-full p-2 rounded-lg text-base sm:text-lg">
-                    <option value="timeCasaId" className="font-thin">Time da casa</option>
-                    <option value="timeVisitanteId" className="font-thin">Time visitante</option>
-                    <option value="empate" className="font-thin">Empate</option>
-                </select>
-                {errors.timeVencedorId && <ComponentForm.errorParagraph>{errors.timeVencedorId.message}</ComponentForm.errorParagraph>}
-            </ComponentForm.fieldContainer>
-            <ComponentForm.fieldContainer>
-                <Label htmlFor="timeCasaPontos">Pontuação do time da casa</Label>
-                <input type="number" {...register('timeCasaPontos', {valueAsNumber: true})} disabled={isLoading} id="timeCasaPontos" className="bg-transparent w-12 outline-none font-museo font-thin text-base sm:text-2xl" placeholder="0" />
-                {errors.timeCasaPontos && <ComponentForm.errorParagraph>{errors.timeCasaPontos.message}</ComponentForm.errorParagraph>}
-            </ComponentForm.fieldContainer>
-            <ComponentForm.fieldContainer>
-                <Label htmlFor="timeVisitantePontos">Pontuação do time visitante</Label>
+                <Label htmlFor="timeVisitantePontos">Pontuação</Label>
                 <input type="number" {...register('timeVisitantePontos', {valueAsNumber: true})} disabled={isLoading} id="timeVisitantePontos" className="bg-transparent w-12 outline-none font-museo font-thin text-base sm:text-2xl" placeholder="0" />
                 {errors.timeVisitantePontos && <ComponentForm.errorParagraph>{errors.timeVisitantePontos.message}</ComponentForm.errorParagraph>}
             </ComponentForm.fieldContainer>

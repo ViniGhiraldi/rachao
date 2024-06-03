@@ -1,61 +1,64 @@
 import { Divider } from "@/components/divider";
 import { RachaoLayout } from "@/components/rachao-layout";
 import { getRachao } from "@/services/api/rachas/get-rachao";
-import { Settings } from "../components/settings/settings";
-import { Card } from "@/components/card";
-import { Shield, X } from "lucide-react";
+import { Shield } from "lucide-react";
 import { CreateButton } from "./components/create-button/create-button";
 import { getAllTimes } from "@/services/api/times/get-all-times";
 import { getAllResultados } from "@/services/api/resultados/get-all-resultados";
 import { Avatar } from "@/components/avatar";
+import { DeleteButton } from "./components/delete-button";
+import { EditButton } from "./components/edit-button/edit-button";
 
-export default async function Resultados({ params }: {params: {slug: string}}){
+export default async function Resultados({ params }: { params: { slug: string } }) {
     const rachao = await getRachao(params.slug);
     const times = await getAllTimes(params.slug);
     const resultados = await getAllResultados(params.slug);
 
-    if(typeof rachao === 'string' || !rachao) return <RachaoLayout.message>{rachao || "Rachão não encontrado ou existente!"}</RachaoLayout.message>
-    if(typeof times === 'string' || !times) return <RachaoLayout.message>{times || "Não há times até o momento."}</RachaoLayout.message>
+    if (typeof rachao === 'string' || !rachao) return <RachaoLayout.message>{rachao || "Rachão não encontrado ou existente!"}</RachaoLayout.message>
+    if (typeof times === 'string' || !times) return <RachaoLayout.message>{times || "Não há times até o momento."}</RachaoLayout.message>
 
-    return(
+    return (
         <RachaoLayout.container>
             <RachaoLayout.header>
-                <div className="space-y-2">
-                    <RachaoLayout.titleContainer>
-                        <RachaoLayout.navigateBack/>
-                        <RachaoLayout.title>{rachao.nome}</RachaoLayout.title>
-                    </RachaoLayout.titleContainer>
-                    <RachaoLayout.subtitle>{rachao.regras ? rachao.regras : 'As regras do rachão aparecerão aqui...'}</RachaoLayout.subtitle>
-                </div>
-                <Settings rachao={rachao}/>
+                <RachaoLayout.titleContainer>
+                    <RachaoLayout.navigateBack />
+                    <RachaoLayout.title>Resultados</RachaoLayout.title>
+                </RachaoLayout.titleContainer>
             </RachaoLayout.header>
 
-            <Divider/>
+            <Divider />
 
             <RachaoLayout.grid>
                 <RachaoLayout.grid className="col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-4">
-                    <CreateButton rachaoId={rachao.id} times={times}/>
+                    <CreateButton rachaoId={rachao.id} times={times} />
                 </RachaoLayout.grid>
-                {(typeof resultados === 'string' || !resultados) ? (
-                    <RachaoLayout.message>{resultados || "Não há resultados até o momento."}</RachaoLayout.message>
-                ) : resultados.map((resultado, i) => (
-                    <div className="flex justify-between items-center p-5 rounded-xl font-londrina bg-white shadow border" key={i}>
-                        <div className="flex flex-col items-center w-1/3 gap-1">
-                            {resultado.timeCasa.imagem ? (
-                                <Avatar src={resultado.timeCasa.imagem.url} className="size-24" alt={resultado.timeCasa.nome} />
-                            ) : <Shield className="shrink-0 size-24" />}
-                            <span className="font-museo line-clamp-1 text-sm">{resultado.timeCasa.nome}</span>
+                {typeof resultados === 'object' && resultados.map((resultado, i) => (
+                    <div className="flex flex-col items-center gap-2">
+                        <div className="flex flex-col rounded-xl shadow border p-5 gap-4 bg-white" key={i}>
+                            <div data-winner={resultado.timeCasaPontos > resultado.timeVisitantePontos} className="flex items-center gap-4 data-[winner=true]:text-primary">
+                                <div className="flex flex-1 items-center gap-4">
+                                    {resultado.timeCasa.imagem ? (
+                                        <Avatar src={resultado.timeCasa.imagem.url} className="size-24" alt={resultado.timeCasa.nome} />
+                                    ) : <Shield className="shrink-0 size-24" />}
+                                    <span className="font-museo line-clamp-2 text-xl">{resultado.timeCasa.nome}</span>
+                                </div>
+                                <Divider vertical />
+                                <span className="text-3xl">{resultado.timeCasaPontos}</span>
+                            </div>
+                            <div data-winner={resultado.timeVisitantePontos > resultado.timeCasaPontos} className="flex items-center gap-4 data-[winner=true]:text-primary">
+                                <div className="flex flex-1 items-center gap-4">
+                                    {resultado.timeVisitante.imagem ? (
+                                        <Avatar src={resultado.timeVisitante.imagem.url} className="size-24" alt={resultado.timeVisitante.nome} />
+                                    ) : <Shield className="shrink-0 size-24" />}
+                                    <span className="font-museo line-clamp-2 text-xl">{resultado.timeVisitante.nome}</span>
+                                </div>
+                                <Divider vertical />
+                                <span className="text-3xl">{resultado.timeVisitantePontos}</span>
+                            </div>
                         </div>
-                        <div className="flex items-center">
-                            <Card.paragraph className="sm:text-4xl text-black">{resultado.timeCasaPontos}</Card.paragraph>
-                            <X size={48}/>
-                            <Card.paragraph className="sm:text-4xl text-black">{resultado.timeVisitantePontos}</Card.paragraph>
-                        </div>
-                        <div className="flex flex-col items-center w-1/3 gap-1">
-                            {resultado.timeVisitante.imagem ? (
-                                <Avatar src={resultado.timeVisitante.imagem.url} className="size-24" alt={resultado.timeVisitante.nome} />
-                            ) : <Shield className="shrink-0 size-24" />}
-                            <span className="font-museo line-clamp-1 text-sm">{resultado.timeVisitante.nome}</span>
+                        <div className="flex gap-2">
+                            <EditButton resultado={resultado} times={times} />
+                            <DeleteButton resultadoId={resultado.id} />
                         </div>
                     </div>
                 ))}

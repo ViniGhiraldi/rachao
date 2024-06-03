@@ -7,7 +7,6 @@ import { Settings } from "./components/settings/settings";
 import { FecharListaButton } from "./components/fechar-lista-button";
 import { ReabrirListaButton } from "./components/reabrir-lista-button";
 import { CompartilharListaButton } from "./components/compartilhar-lista-button";
-import { Status } from "@/components/status";
 import { AdicionarJogadorButton } from "./components/adicionar-jogador-button";
 import { AdicionarDespesaButton } from "./components/adicionar-despesa-button";
 import { AdicionarTimeButton } from "./components/adicionar-time-button";
@@ -28,7 +27,7 @@ export default async function Rachao({ params }: {params: {slug: string}}){
                     <RachaoLayout.titleContainer>
                         <RachaoLayout.navigateBack/>
                         <RachaoLayout.title>{rachao.nome}</RachaoLayout.title>
-                        <span className="hidden sm:inline self-end font-light text-lg font-museo">{rachao.local} - {format(rachao.diahora, "dd/MM/yyyy - HH:mm", {locale: ptBR})}</span>
+                        <span className="hidden sm:inline self-end font-light text-lg font-museo text-muted">{rachao.local} - {format(rachao.diahora, "dd/MM/yyyy - HH:mm", {locale: ptBR})}</span>
                     </RachaoLayout.titleContainer>
                     <RachaoLayout.subtitle>{rachao.regras ? rachao.regras : 'As regras do rachão aparecerão aqui...'}</RachaoLayout.subtitle>
                 </div>

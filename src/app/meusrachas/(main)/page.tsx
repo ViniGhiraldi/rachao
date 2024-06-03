@@ -5,7 +5,6 @@ import { Divider } from "@/components/divider";
 import { RachaoLayout } from "@/components/rachao-layout";
 import { getAllRachao } from "@/services/api/rachas/get-all-rachao";
 import { ptBR } from "date-fns/locale";
-import { Status } from "@/components/status";
 
 export default async function Meusrachas() {
     const rachas = await getAllRachao();

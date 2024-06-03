@@ -8,7 +8,6 @@ import { toast } from 'sonner';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from 'zod'
 import { createRachao } from "@/services/api/rachas/create-rachao"
-import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useLoadingContext } from "@/contexts/loading-context"
 
